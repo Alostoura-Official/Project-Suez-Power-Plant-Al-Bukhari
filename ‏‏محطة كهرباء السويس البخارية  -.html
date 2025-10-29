@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="شرح مبسط ومحسّن بصريًا لمحطة كهرباء السويس البخارية — نسخة احترافية لعرض تعليمي." />
+  <meta name="keywords" content="محطة كهرباء, السويس, بخارية, توليد الكهرباء, الغلاية, التوربين, المكثف, معالجة المياه" />
+  <meta name="author" content="الأسطورة" />
+  <title>مشروع محطة كهرباء السويس البخارية</title>
+  <link rel="icon" href="شركة شرق الدلتا .png">
+  <!-- Bootstrap RTL CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #f4f8fb;
+      --panel:#ffffff;
+      --muted:#6b7280;
+      --accent-1: 32 103 178; /* rgb components for easier alpha */
+      --accent-2: 230 126 34;
+      --glass: rgba(255,255,255,0.6);
+      --radius: 14px;
+      --max-width: 1100px;
+    }
+
+    /* Dark mode variables */
+    :root.dark {
+      --bg: #0f1724;
+      --panel: #0b1220;
+      --muted: #9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+    }
+
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; min-height:100%; font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(var(--accent-1)/0.08) 0%, transparent 8%), var(--bg);
+      color: #0f1724; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.65;
+      display:flex; justify-content:center; padding:28px 16px;
+    }
+
+    .wrapper{width:100%; max-width:var(--max-width);}
+
+    /* HERO / COVER */
+    .hero{
+      background: linear-gradient(135deg, rgba(var(--accent-1)/1) 0%, rgba(46,134,193,0.9) 50%, rgba(var(--accent-2)/1) 100%);
+      color: white; border-radius: var(--radius); padding:28px; box-shadow: 0 10px 30px rgba(15,23,36,0.08);
+      overflow:hidden; position:relative;
+    }
+    .hero-grid{display:grid; grid-template-columns: 1fr 420px; gap:20px; align-items:center;}
+    .hero h1{font-size:1.9rem; margin:0 0 8px 0; font-weight:700; letter-spacing: -0.4px}
+    .hero p.lead{opacity:0.92; margin:0 0 12px 0}
+    .hero .meta{font-size:0.9rem; opacity:0.92}
+    .hero .badge{background:rgba(255,255,255,0.12); color:#fff; border-radius:999px; padding:6px 10px; font-weight:600}
+
+    .hero-graphic{display:flex; align-items:center; justify-content:center}
+    .cover-img{width:420px; max-width:100%; height:auto; border-radius:10px; box-shadow:0 12px 30px rgba(2,6,23,0.25); border:1px solid rgba(255,255,255,0.06)}
+
+    /* NAVBAR compact inside hero */
+    .top-actions{display:flex; gap:8px; align-items:center; justify-content:flex-end}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.12); color: #fff}
+
+    /* Layout */
+    .content{display:grid; grid-template-columns: 280px 1fr; gap:20px; margin-top:18px}
+
+    /* SIDEBAR / TOC */
+    .toc-card{position:sticky; top:26px; align-self:start; border-radius:12px; background:var(--panel); padding:14px; box-shadow:0 6px 18px rgba(15,23,36,0.06)}
+    .toc-card h3{margin:0 0 10px 0; color: rgba(var(--accent-1)/1);}
+    .toc-card a{display:block; padding:8px 10px; border-radius:8px; color:var(--muted); text-decoration:none}
+    .toc-card a.active, .toc-card a:hover{background:linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04)); color:rgb(var(--accent-1)); font-weight:600}
+
+    /* MAIN content cards */
+    .section-card{background:var(--panel); border-radius:12px; padding:18px; box-shadow:0 6px 18px rgba(2,6,23,0.04); margin-bottom:16px; transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s}
+    .section-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(2,6,23,0.08)}
+    .section-card h2{color: rgb(var(--accent-1)); margin-top:0}
+    .caption{font-size:0.85rem; color:var(--muted); text-align:right}
+
+    .sys-img{width:100%; height:auto; border-radius:8px; display:block; margin:8px 0; box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .q{color:rgb(var(--accent-2)); font-weight:700}
+
+    /* Footer */
+    footer{margin-top:10px; text-align:center; color:var(--muted); font-size:0.92rem}
+
+    /* responsive */
+    @media (max-width: 992px){
+      .hero-grid{grid-template-columns:1fr 300px}
+      .content{grid-template-columns: 1fr;}
+      .toc-card{position:relative; top:auto}
+    }
+    @media (max-width:576px){
+      body{padding:18px}
+      .hero{padding:18px}
+      .hero h1{font-size:1.4rem}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-graphic{order:-1}
+    }
+
+    /* subtle appear on scroll animations */
+    .reveal{opacity:0; transform: translateY(10px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.visible{opacity:1; transform:none}
+
+    /* Print rules */
+    @media print{
+      body{background:white; color:black}
+      .hero{box-shadow:none; border-radius:0}
+      nav, .toc-card, .top-actions { display:none }
+      .section-card{box-shadow:none}
+    }
+
+    /* small helper for rgb() with CSS variables fallback */
+    /* allow rgba with --accent-1 like: rgba(var(--accent-1)/0.08) using modern browsers */
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <span class="badge">مشروع تعليمي</span>
+            </div>
+            <div class="top-actions">
+              <button id="darkToggle" class="btn btn-sm btn-ghost" title="تبديل الوضع الليلي"><i class="bi bi-moon"></i></button>
+              <a href="#summary" class="btn btn-sm btn-light">طباعة / PDF</a>
+            </div>
+          </div>
+
+          <h1>مشروع محطة كهرباء السويس البخارية</h1>
+          <p class="lead">دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب.</p>
+          <div class="meta muted">إعداد وتصميم: <strong>الأسطورة</strong> · <span class="ms-2">مستوى: تعليمي/جامعي</span></div>
+
+          <div class="mt-3 d-flex gap-2">
+            <a class="btn btn-outline-light btn-sm" href="#intro">ابدأ القراءة</a>
+            <a class="btn btn-light btn-sm" href="#faq">الأسئلة الشائعة</a>
+          </div>
+        </div>
+
+        <div class="hero-graphic text-center">
+          <!-- Decorative SVG + image -->
+          <img src="البخارية.jpg" alt="مخطط غلاية" class="cover-img"/>
+        </div>
+      </div>
+    </header>
+
+    <div class="content mt-3">
+
+      <!-- SIDEBAR TOC -->
+      <aside class="toc-card">
+        <h3>فهرس المحتوى</h3>
+        <nav id="toc">
+          <a href="#intro">مقدمة</a>
+          <a href="#boiler">الفصل الأول: نظام الغلاية</a>
+          <a href="#turbine">الفصل الثاني: التوربين والمولد</a>
+          <a href="#condenser">الفصل الثالث: المكثف ونظام التبريد</a>
+          <a href="#water">الفصل الرابع: نظام المياه ومعالجتها</a>
+          <a href="#fuel">الفصل الخامس: نظام الوقود وغرفة الاحتراق</a>
+          <a href="#location">الفصل السادس: عوامل تحديد الموقع</a>
+          <a href="#proscons">الفصل السابع: مزايا وعيوب</a>
+          <a href="#efficiency">الفصل الثامن: الكفاءة</a>
+          <a href="#faq">الفصل التاسع: الأسئلة الشائعة</a>
+          <a href="#summary">ملخص ونصائح</a>
+        </nav>
+      </aside>
+
+      <!-- MAIN -->
+      <main>
+
+        <section id="intro" class="section-card reveal">
+          <h2>مقدمة</h2>
+          <p>محطة كهرباء السويس البخارية هي محطة توليد طاقة تعمل بنظام الضغوط تحت الحرجة وتستخدم الغاز الطبيعي والمازوت كوقود احتياطي. الهدف من هذا المحتوى تقديم شرح مُبسّط ومُنظّم للأنظمة الأساسية داخل المحطة لسهولة المذاكرة والفهم.</p>
+        </section>
+
+        <section id="boiler" class="section-card reveal">
+          <h2>الفصل الأول: نظام الغلاية</h2>
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5">
+              <img class="sys-img" alt="مخطط غلاية" src="الغلايات.webp">
+              <div class="caption">مخطط لغلاية أنبوب ماء </div>
+            </div>
+            <div class="col-12 col-md-7">
+              <p>الغلاية هي قلب المحطة، ووظيفتها تحويل ماء التغذية إلى بخار عالي الضغط ودرجة الحرارة عن طريق حرق الوقود في غرفة الاحتراق. يتكون النظام من ممرات المياه، مشعّات حرارية، مجرى العادم، ونظام إمداد الوقود والاشتعال. في محطة السويس: ضغط البخار الرئيسي نحو <strong>166.5 بار</strong>، ودرجة حرارة التشغيل قد تصل إلى حوالي <strong>540°م</strong>.</p>
+
+              <h5>كيف تساهم الغلاية في كفاءة المحطة؟</h5>
+              <ul>
+                <li><strong>كفاءة نقل الحرارة:</strong> تصميم المسطحات والتوريدات الحرارية يزيد من نقل الحرارة للاستخدام الفعّال.</li>
+                <li><strong>التحكم في توليد البخار:</strong> تحكّم دقيق في الضغط والحرارة يوفر بخارًا ثابتًا للتوربين.</li>
+                <li><strong>جودة البخار:</strong> إزالة الشوائب ومعالجة المياه تمنع التآكل وترسب الرواسب.</li>
+                <li><strong>مرونة الوقود:</strong> بعض الغلايات تدعم أنواع وقود متعددة (غاز، مازوت، كتلة حيوية).</li>
+                <li><strong>التوليد المشترك:</strong> إمكانية استغلال الحرارة المفقودة لإمداد حرارة صناعية أو تدفئة (CHP).</li>
+              </ul>
+
+              <hr>
+              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
+              <ol>
+                <li>ما وظيفة الغلاية؟</li>
+                <li>لماذا نحتاج لبخار عالي الضغط؟</li>
+                <li>ما الوقود المستخدم عادة في المحطات الحديثة؟</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="turbine" class="section-card reveal">
+          <h2>الفصل الثاني: التوربين والمولد</h2>
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5 order-md-2">
+              <img class="sys-img" alt="مخطط توربين" src="التوربين.jpg">
+			  <img class="sys-img" alt="مخطط مولد" src="مولد.webp">
+              <div class="caption">مخطط طولى لتوربين بخاري </div>
+            </div>
+            <div class="col-12 col-md-7 order-md-1">
+              <p>يدخل البخار المشدود إلى التوربين، حيث يتمدد عبر شفرات متعددة المراحل (HP, IP, LP)، مسببًا دوران الدوار. الدوار متصل بالمولد الذي يحول الطاقة الميكانيكية إلى طاقة كهربائية.</p>
+              <p>التوربينات الحديثة عادةً تستخدم إعادة تسخين (reheat) وتقسيم المراحل لرفع الكفاءة وتقليل التآكل.</p>
+
+              <hr>
+              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
+              <ol>
+                <li>كيف يعمل التوربين؟</li>
+                <li>ما علاقة التوربين بالمولد؟</li>
+                <li>ما فائدة المراحل المتعددة وإعادة التسخين؟</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="condenser" class="section-card reveal">
+          <h2>الفصل الثالث: المكثف ونظام التبريد</h2>
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5">
+              <img class="sys-img" alt="مكثف" src="المكثف.jpg">
+              <div class="caption">مكثف — مثال توضيحي</div>
+            </div>
+            <div class="col-12 col-md-7">
+              <p>المكثف يحول بخار العادم من التوربين إلى ماء تكاثفي باستخدام مياه تبريد (غالبًا مياه بحرية في محطات ساحلية). ذلك يخفض ضغط مخرج التوربين ويزيد الفرق في الضغط عبر التوربين مما يحسّن الكفاءة.</p>
+              <p>يجب الحفاظ على نظافة أنابيب المكثف ومنع دخول الغازات غير المكثفة لأن ذلك يرفع الضغط ويقلل الكفاءة.</p>
+
+              <hr>
+              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
+              <ol>
+                <li>لماذا نستخدم المكثف؟</li>
+                <li>ما دور مياه البحر؟</li>
+                <li>ما مخاطر تلوث أنابيب المكثف؟</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="water" class="section-card reveal">
+          <h2>الفصل الرابع: نظام المياه ومعالجتها</h2>
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5 order-md-2">
+              <img class="sys-img" alt="معالجة مياه" src="https://upload.wikimedia.org/wikipedia/commons/5/52/Water_treatment_plant_schematic.svg">
+              <div class="caption">مخطط أنظمة معالجة مياه التغذية </div>
+            </div>
+            <div class="col-12 col-md-7 order-md-1">
+              <p>نظام المياه يشمل مياه التغذية، معالجة مياه التوربين، مخارج التكثيف، ومخازن الطوارئ. المعالجة تزيل الأملاح والغازات الذائبة لمنع التآكل والترسبات (scale).</p>
+              <p>التقنيات الشائعة: deaerator لإزالة الغازات، أنظمة تبادل أيوني (demineralization)، مرشحات وإجراءات معالجة كيماوية.</p>
+
+              <hr>
+              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
+              <ol>
+                <li>لماذا نعالج مياه التغذية؟</li>
+                <li>ما مخاطر وجود أملاح في الغلاية؟</li>
+                <li>كيف يحسن التسخين المسبق كفاءة المحطة؟</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="fuel" class="section-card reveal">
+          <h2>الفصل الخامس: نظام الوقود وغرفة الاحتراق</h2>
+          <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5">
+              <img class="sys-img" alt="غرفة احتراق" src="https://upload.wikimedia.org/wikipedia/commons/2/24/Boiler_furnace.svg">
+              <div class="caption">غرفة احتراق ومشعل — مثال توضيحي</div>
+            </div>
+            <div class="col-12 col-md-7">
+              <p>خطوط إمداد الغاز الطبيعي (الوقود الأساسي) والمازوت (احتياطي) تصل إلى المشعل داخل غرفة الاحتراق. المازوت يحتاج تسخينًا قبل الضخ، وتوجد أنظمة أمان لمنع التسرب، صمامات فصل، وكواشف للهب والغازات.</p>
+
+              <hr>
+              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
+              <ol>
+                <li>ما الفرق بين الغاز الطبيعي والمازوت من ناحية التشغيل؟</li>
+                <li>لماذا يحتاج المازوت لتسخين قبل الحقن؟</li>
+                <li>ما نظم السلامة الأساسية لخط الوقود؟</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <section id="location" class="section-card reveal">
+          <h2>الفصل السادس: عوامل تحديد موقع محطة الطاقة البخارية</h2>
+          <div class="factor-card p-3 mb-2" style="border-left:4px solid rgba(var(--accent-1)/1)">
+            <h5>توريد الوقود</h5>
+            <p class="muted">المحطة يجب أن تكون قريبة من مصادر الوقود لتقليل تكاليف النقل (مثلاً بالقرب من شبكات الغاز أو مرافق التخزين).</p>
+          </div>
+          <div class="factor-card p-3 mb-2" style="border-left:4px solid rgba(var(--accent-2)/1)">
+            <h5>توافر المياه</h5>
+            <p class="muted">وجود مصدر ثابت للمياه (نهر، قناة، أو بحر) ضروري لأن بعض الخسائر تتطلب تغذية مستمرة — تقريبًا 2٪ من البخار المنتَج قد يلزم كـ makeup water.</p>
+          </div>
+          <div class="factor-card p-3 mb-2">
+            <h5>مرافق النقل</h5>
+            <p class="muted">القدرة على توصيل معدات ثقيلة ووقود عبر سكك حديدية أو طرق رئيسية عامل مهم.</p>
+          </div>
+        </section>
+
+        <section id="proscons" class="section-card reveal">
+          <h2>الفصل السابع: مزايا وعيوب محطات الطاقة البخارية</h2>
+          <div class="table-responsive">
+            <table class="table table-bordered comparison-table">
+              <thead>
+                <tr>
+                  <th class="text-center">المزايا</th>
+                  <th class="text-center">العيوب</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>تكلفة أولية منخفضة نسبياً.</td>
+                  <td>كفاءة متوسطة (تقريباً 29–41%).</td>
+                </tr>
+                <tr>
+                  <td>مرونة في اختيار الوقود.</td>
+                  <td>آثار بيئية (انبعاثات، تلوث مياه).</td>
+                </tr>
+                <tr>
+                  <td>مصدر طاقة موثوق للاستمرار على مدار الساعة.</td>
+                  <td>احتياج كبير للمياه.</td>
+                </tr>
+                <tr>
+                  <td>سهولة التركيب بالقرب من مصادر الوقود والمياه.</td>
+                  <td>تكاليف تشغيل وصيانة مرتفعة.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section id="efficiency" class="section-card reveal">
+          <h2>الفصل الثامن: كفاءة محطات الطاقة البخارية</h2>
+          <p>الكفاءة الإجمالية لمحطة بخارية تكون متوسطة نسبيًا — سببان رئيسيان:</p>
+          <ol>
+            <li>فقد حرارة كبير في المكثف.</li>
+            <li>فقد حراري خلال مراحل النقل والعتاد والسطوح.</li>
+          </ol>
+          <p>تحسين الكفاءة يتم عبر: زيادة ضغط ودرجة بخار الدخول (حتى حدود المواد)، إعادة التسخين، المسخنات المسبقة لمياه التغذية، وعزل حراري جيد.</p>
+        </section>
+
+        <section id="faq" class="section-card reveal">
+          <h2>الفصل التاسع: الأسئلة الشائعة</h2>
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">ما هي محطة الطاقة البخارية؟</button>
+              </h3>
+              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">منشأة تحول الطاقة الحرارية إلى طاقة ميكانيكية ثم كهربائية عبر بخار الماء والتوربينات.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">كيف تعمل محطة الطاقة البخارية؟</button>
+              </h3>
+              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">الماء يسخن في الغلاية إلى بخار؛ البخار يدفع التوربين؛ التوربين يدير المولد؛ البخار يُكثّف ويُعاد للمرة القادمة.</div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">ما أنواع محطات الطاقة البخارية؟</button>
+              </h3>
+              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">تقليدية (فحم/غاز/مازوت)، نووية، حرارية أرضية، شمسية حرارية، ومحطات التوليد من حرارة مهدرة.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="summary" class="section-card reveal">
+          <h2>ملخص المذاكرة ونصائح سريعة</h2>
+          <ul>
+            <li>الدورة الأساسية: <strong>الغلاية → التوربين → المكثف → المضخة → الغلاية</strong>.</li>
+            <li>زيادة حرارة وضغط البخار عند دخول التوربين تحسّن الكفاءة (مع اعتبار حدود المواد).</li>
+            <li>معالجة المياه ونظافة المكثف من أهم عوامل الاستمرارية.</li>
+            <li>راجع أسئلة كل فصل بصوت عالٍ لتثبيت المعلومات.</li>
+          </ul>
+
+          <footer>
+            إعداد وتصميم: <strong style="color: #d32f2f;">الأسطورة</strong> · نسخة احترافية للتعليم · © "مشروع محطة السويس البخارية"
+          </footer>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkToggle');
+    const root = document.documentElement;
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyDark(dark){
+      if(dark) root.classList.add('dark'); else root.classList.remove('dark');
+      // update icon
+      toggle.innerHTML = dark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+    }
+
+    // initial
+    const saved = localStorage.getItem('prefers-dark');
+    if(saved !== null) applyDark(saved === '1'); else applyDark(prefersDark);
+
+    toggle.addEventListener('click', ()=>{
+      const isDark = root.classList.toggle('dark');
+      localStorage.setItem('prefers-dark', isDark ? '1' : '0');
+      applyDark(isDark);
+    });
+
+    // Smooth reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(entries =>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      })
+    }, { threshold: 0.12 });
+    reveals.forEach(r=>io.observe(r));
+
+    // TOC active link
+    const tocLinks = document.querySelectorAll('#toc a');
+    function setActiveToc(){
+      let index = -1;
+      const sections = Array.from(tocLinks).map(a=>document.querySelector(a.getAttribute('href')));
+      sections.forEach((sec,i)=>{
+        const r = sec.getBoundingClientRect();
+        if(r.top <= 120) index = i;
+      });
+      tocLinks.forEach((a,i)=> a.classList.toggle('active', i===index));
+    }
+    window.addEventListener('scroll', setActiveToc);
+    setActiveToc();
+
+    // smooth scrolling for TOC
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', function(e){
+        const target = document.querySelector(this.getAttribute('href'));
+        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+      });
+    });
+
+    // Print shortcut for PDF button
+    document.querySelectorAll('a[href="#summary"]').forEach(a=> a.addEventListener('click', (e)=>{ setTimeout(()=>window.print(), 300); }));
+  </script>
+</body>
+</html>

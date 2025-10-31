@@ -4,7 +4,7 @@
 
 ---
 <p align="center">
-  <img src="assets/البخارية.jpg" alt="صورة لمحطة كهرباء السويس البخارية" width="500" height="200">
+  <img src="assets/محطة-كهرباء-السويس-البخارية.jpg" alt="صورة لمحطة كهرباء السويس البخارية" width="500" height="200">
 </p>
 
 

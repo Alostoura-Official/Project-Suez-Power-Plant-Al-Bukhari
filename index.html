@@ -16,42 +16,133 @@
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
+    /* ===============================
+       تعريف المتغيرات العامة للألوان والقيم الأساسية
+    =============================== */
     :root{
-      --bg: #f4f8fb;
-      --panel:#ffffff;
-      --muted:#212529;
-      --accent-1: 32 103 178; /* rgb components for easier alpha */
-      --accent-2: 230 126 34;
-      --glass: rgba(255,255,255,0.6);
-      --radius: 14px;
-      --max-width: 1100px;
+      --bg: #f4f8fb;                /* لون خلفية الصفحة */
+      --panel:#ffffff;              /* لون خلفية البطاقات والعناصر */
+      --muted:#6b7280;              /* لون النصوص الثانوية */
+      --accent-1: 32 103 178;       /* اللون الرئيسي (كمكونات RGB لاستخدامها مع rgba) */
+      --accent-2: 230 126 34;       /* اللون الثانوي */
+      --glass: rgba(255,255,255,0.6); /* تأثير الزجاج الشفاف */
+      --radius: 14px;               /* درجة تدوير الزوايا */
+      --max-width: 1100px;          /* أقصى عرض للمحتوى */
     }
 
-    /* Dark mode variables */
+    /* ===============================
+       إعداد ألوان الوضع المظلم (Dark Mode)
+    =============================== */
     :root.dark {
       --bg: #0f1724;
       --panel: #0b1220;
       --muted: #9aa4b2;
       --glass: rgba(255,255,255,0.03);
+      color: #e2e8f0; /* اللون الأساسي للنص في الوضع المظلم */
     }
 
+    /* ===============================
+       تلوين النصوص بشكل عام
+    =============================== */
+    body {
+      color: #0f1724; /* اللون الأساسي للنص في الوضع الفاتح */
+    }
+
+    :root.dark body {
+      color: #e2e8f0; /* اللون الأساسي للنص في الوضع المظلم */
+    }
+
+    /* النصوص داخل البطاقات */
+    .section-card {
+      color: inherit; /* يرث اللون من العنصر الأب */
+    }
+
+    /* ===============================
+       تحسين مظهر الجداول في الوضع المظلم
+    =============================== */
+    :root.dark .comparison-table {
+      color: #e2e8f0;
+      background-color: var(--panel);
+    }
+
+    :root.dark .comparison-table th {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+
+    :root.dark .comparison-table td {
+      background-color: var(--panel);
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    :root.dark .comparison-table thead th {
+      border-bottom-color: #334155;
+    }
+
+    /* ===============================
+       تحسين ألوان النصوص في عناصر أخرى للوضع المظلم
+    =============================== */
+    :root.dark .accordion-button {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+
+    :root.dark .accordion-body {
+      background-color: #1e293b;
+      color: #cbd5e1;
+    }
+
+    /* الروابط */
+    :root.dark a {
+      color: #60a5fa;
+    }
+
+    :root.dark .toc-card a {
+      color: #cbd5e1;
+    }
+
+    :root.dark .toc-card a.active, 
+    :root.dark .toc-card a:hover {
+      color: #60a5fa;
+    }
+
+    /* التذييل */
+    :root.dark footer {
+      color: #94a3b8;
+    }
+
+    /* ===============================
+       إعدادات عامة للجسم والتخطيط
+    =============================== */
     html,body{height:100%;}
     body{
-      margin:0; padding:0; min-height:100%; font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      margin:0; padding:0; min-height:100%;
+      font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
       background: radial-gradient(1200px 600px at 10% 10%, rgba(var(--accent-1)/0.08) 0%, transparent 8%), var(--bg);
-      color: #0f1724; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      color: #0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
       line-height:1.65;
       display:flex; justify-content:center; padding:28px 16px;
     }
 
     .wrapper{width:100%; max-width:var(--max-width);}
 
-    /* HERO / COVER */
+    /* ===============================
+       قسم الـ HERO / الغلاف العلوي
+    =============================== */
     .hero{
       background: linear-gradient(135deg, rgba(var(--accent-1)/1) 0%, rgba(46,134,193,0.9) 50%, rgba(var(--accent-2)/1) 100%);
-      color: white; border-radius: var(--radius); padding:28px; box-shadow: 0 10px 30px rgba(15,23,36,0.08);
-      overflow:hidden; position:relative;
+      color: white;
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(15,23,36,0.08);
+      overflow:hidden;
+      position:relative;
     }
+
     .hero-grid{display:grid; grid-template-columns: 1fr 420px; gap:20px; align-items:center;}
     .hero h1{font-size:1.9rem; margin:0 0 8px 0; font-weight:700; letter-spacing: -0.4px}
     .hero p.lead{opacity:0.92; margin:0 0 12px 0}
@@ -61,35 +152,74 @@
     .hero-graphic{display:flex; align-items:center; justify-content:center}
     .cover-img{width:420px; max-width:100%; height:auto; border-radius:10px; box-shadow:0 12px 30px rgba(2,6,23,0.25); border:1px solid rgba(255,255,255,0.06)}
 
-    /* NAVBAR compact inside hero */
+    /* ===============================
+       شريط الأدوات العلوي داخل الـ hero
+    =============================== */
     .top-actions{display:flex; gap:8px; align-items:center; justify-content:flex-end}
     .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.12); color: #fff}
 
-    /* Layout */
+    /* ===============================
+       هيكل الصفحة العام (المحتوى + الفهرس)
+    =============================== */
     .content{display:grid; grid-template-columns: 280px 1fr; gap:20px; margin-top:18px}
 
-    /* SIDEBAR / TOC */
-    .toc-card{position:sticky; top:26px; align-self:start; border-radius:12px; background:var(--panel); padding:14px; box-shadow:0 6px 18px rgba(15,23,36,0.06)}
+    /* ===============================
+       الشريط الجانبي / جدول المحتويات
+    =============================== */
+    .toc-card{
+      position:sticky;
+      top:26px;
+      align-self:start;
+      border-radius:12px;
+      background:var(--panel);
+      padding:14px;
+      box-shadow:0 6px 18px rgba(15,23,36,0.06)
+    }
     .toc-card h3{margin:0 0 10px 0; color: rgba(var(--accent-1)/1);}
     .toc-card a{display:block; padding:8px 10px; border-radius:8px; color:var(--muted); text-decoration:none}
-    .toc-card a.active, .toc-card a:hover{background:linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04)); color:rgb(var(--accent-1)); font-weight:600}
+    .toc-card a.active, .toc-card a:hover{
+      background:linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+      color:rgb(var(--accent-1));
+      font-weight:600
+    }
 
-    /* MAIN content cards */
-    .section-card{background:var(--panel); border-radius:12px; padding:18px; box-shadow:0 6px 18px rgba(2,6,23,0.04); margin-bottom:16px; transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s}
-    .section-card:hover{transform:translateY(-6px); box-shadow:0 20px 40px rgba(2,6,23,0.08)}
+    /* ===============================
+       بطاقات الأقسام الرئيسية
+    =============================== */
+    .section-card{
+      background:var(--panel);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 6px 18px rgba(2,6,23,0.04);
+      margin-bottom:16px;
+      transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s
+    }
+    .section-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 20px 40px rgba(2,6,23,0.08)
+    }
     .section-card h2{color: rgb(var(--accent-1)); margin-top:0}
     .caption{font-size:0.85rem; color:var(--muted); text-align:right}
 
     .sys-img{width:100%; height:auto; border-radius:8px; display:block; margin:8px 0; box-shadow:0 6px 18px rgba(2,6,23,0.06)}
 
-    /* small utilities */
+    /* نصوص مساعدة صغيرة */
     .muted{color:var(--muted)}
     .q{color:rgb(var(--accent-2)); font-weight:700}
 
-    /* Footer */
-    footer{margin-top:10px; text-align:center; color:var(--muted); font-size:0.92rem}
+    /* ===============================
+       تذييل الصفحة
+    =============================== */
+    footer{
+      margin-top:10px;
+      text-align:center;
+      color:var(--muted);
+      font-size:0.92rem
+    }
 
-    /* responsive */
+    /* ===============================
+       استجابة التصميم للشاشات الصغيرة
+    =============================== */
     @media (max-width: 992px){
       .hero-grid{grid-template-columns:1fr 300px}
       .content{grid-template-columns: 1fr;}
@@ -103,11 +233,15 @@
       .hero-graphic{order:-1}
     }
 
-    /* subtle appear on scroll animations */
+    /* ===============================
+       تأثيرات الظهور عند التمرير
+    =============================== */
     .reveal{opacity:0; transform: translateY(10px); transition:opacity .6s ease, transform .6s ease}
     .reveal.visible{opacity:1; transform:none}
 
-    /* Print rules */
+    /* ===============================
+       إعدادات الطباعة
+    =============================== */
     @media print{
       body{background:white; color:black}
       .hero{box-shadow:none; border-radius:0}
@@ -115,10 +249,9 @@
       .section-card{box-shadow:none}
     }
 
-    /* small helper for rgb() with CSS variables fallback */
-    /* allow rgba with --accent-1 like: rgba(var(--accent-1)/0.08) using modern browsers */
-    
-    /* Custom styles for collapsible sections */
+    /* ===============================
+       أقسام الفهرس القابلة للطي (Collapsible TOC)
+    =============================== */
     .toc-header {
       display: flex;
       justify-content: space-between;
@@ -178,7 +311,54 @@
     .toc-section:last-child {
       margin-bottom: 0;
     }
-  </style>
+    /* ===============================
+       زر الطفو للصعود إلى أعلى الصفحة
+    =============================== */	
+    .floating-button {
+      /* التموضع والتخطيط */
+      position: fixed;               /* تثبيت الزر في مكانه أثناء التمرير */
+      bottom: 20px;                  /* المسافة من الأسفل */
+      left: 20px;                    /* المسافة من اليسار */
+      width: 50px;                   /* عرض الزر */
+      height: 50px;                  /* ارتفاع الزر */
+    
+      /* المظهر والتصميم */
+      background-color: #210f80;     /* لون الخلفية الأزرق الداكن */
+      border-radius: 50%;            /* جعل الزر دائرياً */
+      display: none;                 /* إخفاء الزر في البداية */
+      align-items: center;           /* محاذاة المحتوى عمودياً في المنتصف */
+      justify-content: center;       /* محاذاة المحتوى أفقياً في المنتصف */
+      cursor: pointer;               /* تغيير شكل المؤشر إلى يد عند التمرير */
+    
+      /* التأثيرات البصرية */
+      opacity: 0.8;                  /* شفافية خفيفة */
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5); /* ظل خفيف حول الزر */
+      transition: left 0.3s ease, opacity 0.3s ease, transform 0.2s ease; /* تأثيرات انتقالية سلسة */
+    }
+
+    /* تأثيرات عند تمرير الماوس فوق الزر */
+    .floating-button:hover {
+      background-color: #fbd034;     /* تغيير اللون إلى الأصفر عند التمرير */
+      transform: scale(1.1);         /* تكبير الزر قليلاً عند التمرير */
+    }
+
+    /* تصميم السهم داخل الزر */
+    .arrow-up {
+      /* إنشاء شكل السهم باستخدام حدود CSS */
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;     /* الحد الأيسر شفاف */
+      border-right: 12px solid transparent;    /* الحد الأيمن شفاف */
+      border-bottom: 25px solid white;         /* الحد السفلي يشكل رأس السهم */
+      
+      /* تموضع السهم في منتصف الزر */
+      position: absolute;
+      top: 50%;                    /* منتصف عمودياً */
+      left: 50%;                   /* منتصف أفقياً */
+      transform: translate(-50%, -50%); /* ضبط المركز بدقة */
+    }
+    </style>
+
 </head>
 <body>
   <div class="wrapper">
@@ -485,6 +665,10 @@
             إعداد وتصميم: <strong style="color: #d32f2f;">الأسطورة</strong> · نسخة احترافية للتعليم · © "مشروع محطة السويس البخارية"
           </footer>
         </section>
+		
+		<br><br><br><br>
+
+       <div id="go-to-top-button" class="floating-button"><div class="arrow-up"></div></div>
 
       </main>
     </div>
@@ -494,80 +678,166 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Dark mode toggle
+    // ===============================
+    // تبديل الوضع المظلم
+    // ===============================
     const toggle = document.getElementById('darkToggle');
     const root = document.documentElement;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+    /**
+     * تطبيق الوضع المظلم أو الفاتح
+     * @param {boolean} dark - true للوضع المظلم, false للوضع الفاتح
+     */
     function applyDark(dark){
-      if(dark) root.classList.add('dark'); else root.classList.remove('dark');
-      // update icon
+      if(dark) {
+        root.classList.add('dark');  // إضافة كلاس الوضع المظلم
+      } else {
+        root.classList.remove('dark'); // إزالة كلاس الوضع المظلم
+      }
+      // تحديث الأيقونة حسب الوضع
       toggle.innerHTML = dark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
     }
 
-    // initial
+    // التهيئة الأولية - التحقق من الإعدادات المحفوظة أو تفضيلات النظام
     const saved = localStorage.getItem('prefers-dark');
-    if(saved !== null) applyDark(saved === '1'); else applyDark(prefersDark);
+    if(saved !== null) {
+      applyDark(saved === '1'); // استخدام الإعدادات المحفوظة
+    } else {
+      applyDark(prefersDark); // استخدام تفضيلات النظام
+    }
 
+    // إضافة مستمع حدث للنقر على زر التبديل
     toggle.addEventListener('click', ()=>{
-      const isDark = root.classList.toggle('dark');
-      localStorage.setItem('prefers-dark', isDark ? '1' : '0');
-      applyDark(isDark);
+      const isDark = root.classList.toggle('dark'); // تبديل الوضع
+      localStorage.setItem('prefers-dark', isDark ? '1' : '0'); // حفظ التفضيل
+      applyDark(isDark); // تطبيق التغييرات
     });
 
-    // Smooth reveal on scroll
+    // ===============================
+    // تأثير الظهور عند التمرير (Reveal Animation)
+    // ===============================
     const reveals = document.querySelectorAll('.reveal');
     const io = new IntersectionObserver(entries =>{
       entries.forEach(e=>{
-        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+        if(e.isIntersecting){ 
+          e.target.classList.add('visible'); // إضافة كلاس الظهور
+          io.unobserve(e.target); // إيقاف المراقبة بعد الظهور
+        }
       })
-    }, { threshold: 0.12 });
+    }, { threshold: 0.12 }); // نسبة 12% من العنصر يجب أن تكون مرئية
+    
+    // بدء مراقبة جميع العناصر
     reveals.forEach(r=>io.observe(r));
 
-    // TOC active link
+    // ===============================
+    // تفعيل الروابط النشطة في جدول المحتويات
+    // ===============================
     const tocLinks = document.querySelectorAll('#toc a');
+    
     function setActiveToc(){
       let index = -1;
+      // تحويل الروابط إلى عناصر المقابلة لها في الصفحة
       const sections = Array.from(tocLinks).map(a=>document.querySelector(a.getAttribute('href')));
+      
+      // تحديد القسم النشط بناءً على موضع التمرير
       sections.forEach((sec,i)=>{
         const r = sec.getBoundingClientRect();
-        if(r.top <= 120) index = i;
+        if(r.top <= 120) index = i; // إذا كان القسم قريب من الأعلى
       });
+      
+      // تطبيق الحالة النشطة على الرابط المناسب
       tocLinks.forEach((a,i)=> a.classList.toggle('active', i===index));
     }
+    
+    // إضافة مستمعي الأحداث
     window.addEventListener('scroll', setActiveToc);
-    setActiveToc();
+    setActiveToc(); // التنفيذ الأولي
 
-    // smooth scrolling for TOC
+    // ===============================
+    // التمرير السلس لروابط جدول المحتويات
+    // ===============================
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', function(e){
         const target = document.querySelector(this.getAttribute('href'));
-        if(target){ e.preventDefault(); target.scrollIntoView({behavior:'smooth', block:'start'}); }
+        if(target){ 
+          e.preventDefault(); // منع السلوك الافتراضي
+          target.scrollIntoView({behavior:'smooth', block:'start'}); // تمرير سلس
+        }
       });
     });
 
-    // Print shortcut for PDF button
-    document.querySelectorAll('a[href="#summary"]').forEach(a=> a.addEventListener('click', (e)=>{ setTimeout(()=>window.print(), 300); }));
+    // ===============================
+    // اختصار الطباعة لزر PDF
+    // ===============================
+    document.querySelectorAll('a[href="#summary"]').forEach(a=> 
+      a.addEventListener('click', (e)=>{ 
+        setTimeout(()=>window.print(), 300); // طباعة الصفحة بعد 300 مللي ثانية
+      })
+    );
 
-    // Toggle Sections visibility
+    // ===============================
+    // تبديل ظهور الأقسام (قابل للطي)
+    // ===============================
     const sectionsToggle = document.getElementById('sectionsToggle');
     const sectionsContent = document.getElementById('sections');
     const sectionsIcon = document.getElementById('sectionsIcon');
     
     sectionsToggle.addEventListener('click', () => {
-      sectionsContent.classList.toggle('collapsed');
-      sectionsIcon.classList.toggle('collapsed');
+      sectionsContent.classList.toggle('collapsed'); // طي/فتح المحتوى
+      sectionsIcon.classList.toggle('collapsed'); // تدوير الأيقونة
     });
 
-    // Toggle TOC visibility
+    // ===============================
+    // تبديل ظهور جدول المحتويات (قابل للطي)
+    // ===============================
     const tocToggle = document.getElementById('tocToggle');
     const tocContent = document.getElementById('toc');
     const tocIcon = document.getElementById('tocIcon');
     
     tocToggle.addEventListener('click', () => {
-      tocContent.classList.toggle('collapsed');
-      tocIcon.classList.toggle('collapsed');
+      tocContent.classList.toggle('collapsed'); // طي/فتح المحتوى
+      tocIcon.classList.toggle('collapsed'); // تدوير الأيقونة
     });
-  </script>
+
+    // ===============================
+    // زر الصعود إلى الأعلى
+    // ===============================
+    const goToTopButton = document.getElementById('go-to-top-button');
+
+    // إظهار أو إخفاء الزر بناءً على موضع التمرير
+    window.addEventListener('scroll', function () {
+        if (window.scrollY > 100) { 
+            // يظهر الزر بعد تجاوز 100 بكسل من التمرير
+            goToTopButton.style.display = 'flex';
+        } else {
+            // إخفاء الزر عندما يكون التمرير في الأعلى
+            goToTopButton.style.display = 'none';
+        }
+    });
+
+    // تغيير لون الزر عند تمرير الماوس فوقه
+    goToTopButton.addEventListener('mouseenter', function () {
+        goToTopButton.style.backgroundColor = '#fbd034'; // اللون الأصفر
+    });
+
+    // إعادة اللون الأصلي عند إزالة الماوس
+    goToTopButton.addEventListener('mouseleave', function () {
+        goToTopButton.style.backgroundColor = '#092C9F'; // اللون الأزرق
+    });
+
+    // التمرير إلى الأعلى عند النقر على الزر
+    goToTopButton.addEventListener('click', function () {
+        goToTopButton.style.backgroundColor = '#fbd034'; // تغيير اللون إلى الأصفر عند النقر
+
+        // التمرير السلس إلى أعلى الصفحة
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // إعادة اللون الأصلي بعد انتهاء التمرير
+        setTimeout(() => {
+            goToTopButton.style.backgroundColor = '#092C9F';
+        }, 500); // بعد نصف ثانية من النقر
+    });
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
- // Dark mode toggle
+// Dark mode toggle
     const toggle = document.getElementById('darkToggle');
     const root = document.documentElement;
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -52,3 +52,23 @@
 
     // Print shortcut for PDF button
     document.querySelectorAll('a[href="#summary"]').forEach(a=> a.addEventListener('click', (e)=>{ setTimeout(()=>window.print(), 300); }));
+
+    // Toggle Sections visibility
+    const sectionsToggle = document.getElementById('sectionsToggle');
+    const sectionsContent = document.getElementById('sections');
+    const sectionsIcon = document.getElementById('sectionsIcon');
+    
+    sectionsToggle.addEventListener('click', () => {
+      sectionsContent.classList.toggle('collapsed');
+      sectionsIcon.classList.toggle('collapsed');
+    });
+
+    // Toggle TOC visibility
+    const tocToggle = document.getElementById('tocToggle');
+    const tocContent = document.getElementById('toc');
+    const tocIcon = document.getElementById('tocIcon');
+    
+    tocToggle.addEventListener('click', () => {
+      tocContent.classList.toggle('collapsed');
+      tocIcon.classList.toggle('collapsed');
+    });

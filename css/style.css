@@ -1,8 +1,7 @@
-
-    :root{
+:root{
       --bg: #f4f8fb;
       --panel:#ffffff;
-      --muted:#6b7280;
+      --muted:#212529;
       --accent-1: 32 103 178; /* rgb components for easier alpha */
       --accent-2: 230 126 34;
       --glass: rgba(255,255,255,0.6);
@@ -100,3 +99,64 @@
 
     /* small helper for rgb() with CSS variables fallback */
     /* allow rgba with --accent-1 like: rgba(var(--accent-1)/0.08) using modern browsers */
+    
+    /* Custom styles for collapsible sections */
+    .toc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.05), rgba(var(--accent-2)/0.02));
+      transition: background 0.3s ease;
+    }
+    
+    .toc-header:hover {
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+    }
+    
+    .toc-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .toc-toggle {
+      background: none;
+      border: none;
+      color: rgba(var(--accent-1)/1);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    
+    .toc-toggle:hover {
+      background: rgba(var(--accent-1)/0.1);
+    }
+    
+    .toc-toggle.collapsed {
+      transform: rotate(180deg);
+    }
+    
+    .toc-content {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+      max-height: 500px;
+      opacity: 1;
+    }
+    
+    .toc-content.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+    
+    .toc-section {
+      margin-bottom: 16px;
+    }
+    
+    .toc-section:last-child {
+      margin-bottom: 0;
+    }

@@ -19,7 +19,7 @@
     :root{
       --bg: #f4f8fb;
       --panel:#ffffff;
-      --muted:#6b7280;
+      --muted:#212529;
       --accent-1: 32 103 178; /* rgb components for easier alpha */
       --accent-2: 230 126 34;
       --glass: rgba(255,255,255,0.6);
@@ -117,6 +117,67 @@
 
     /* small helper for rgb() with CSS variables fallback */
     /* allow rgba with --accent-1 like: rgba(var(--accent-1)/0.08) using modern browsers */
+    
+    /* Custom styles for collapsible sections */
+    .toc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.05), rgba(var(--accent-2)/0.02));
+      transition: background 0.3s ease;
+    }
+    
+    .toc-header:hover {
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+    }
+    
+    .toc-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .toc-toggle {
+      background: none;
+      border: none;
+      color: rgba(var(--accent-1)/1);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    
+    .toc-toggle:hover {
+      background: rgba(var(--accent-1)/0.1);
+    }
+    
+    .toc-toggle.collapsed {
+      transform: rotate(180deg);
+    }
+    
+    .toc-content {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+      max-height: 500px;
+      opacity: 1;
+    }
+    
+    .toc-content.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+    
+    .toc-section {
+      margin-bottom: 16px;
+    }
+    
+    .toc-section:last-child {
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
@@ -152,24 +213,47 @@
       </div>
     </header>
 
-    <div class="content mt-3">
-
-      <!-- SIDEBAR TOC -->
+    <!-- CONTENT AREA -->
+    <div class="content">
       <aside class="toc-card">
-        <h3>فهرس المحتوى</h3>
-        <nav id="toc">
-          <a href="#intro">مقدمة</a>
-          <a href="#boiler">الفصل الأول: نظام الغلاية</a>
-          <a href="#turbine">الفصل الثاني: التوربين والمولد</a>
-          <a href="#condenser">الفصل الثالث: المكثف ونظام التبريد</a>
-          <a href="#water">الفصل الرابع: نظام المياه ومعالجتها</a>
-          <a href="#fuel">الفصل الخامس: نظام الوقود وغرفة الاحتراق</a>
-          <a href="#location">الفصل السادس: عوامل تحديد الموقع</a>
-          <a href="#proscons">الفصل السابع: مزايا وعيوب</a>
-          <a href="#efficiency">الفصل الثامن: الكفاءة</a>
-          <a href="#faq">الفصل التاسع: الأسئلة الشائعة</a>
-          <a href="#summary">ملخص ونصائح</a>
-        </nav>
+        <!-- Sections (الأقسام) -->
+        <div class="toc-section">
+          <div class="toc-header" id="sectionsToggle">
+            <h3>الأقسام</h3>
+            <button class="toc-toggle" id="sectionsIcon">
+              <i class="bi bi-chevron-up"></i>
+            </button>
+          </div>
+          <nav id="sections" class="toc-content collapsed">
+            <a href="sections/feeders.html">الغلايات</a>
+            <a href="sections/turbines.html">التوربينات</a>
+            <a href="sections/gis.html">نظام GIS</a>
+            <a href="sections/about.html">عن المشروع</a>
+          </nav>
+        </div>
+        
+        <!-- Table of Contents (فهرس المحتوى) -->
+        <div class="toc-section">
+          <div class="toc-header" id="tocToggle">
+            <h3>فهرس المحتوى</h3>
+            <button class="toc-toggle" id="tocIcon">
+              <i class="bi bi-chevron-up"></i>
+            </button>
+          </div>
+          <nav id="toc" class="toc-content collapsed">
+            <a href="#intro">مقدمة</a>
+            <a href="#boiler">الفصل الأول: نظام الغلاية</a>
+            <a href="#turbine">الفصل الثاني: التوربين والمولد</a>
+            <a href="#condenser">الفصل الثالث: المكثف ونظام التبريد</a>
+            <a href="#water">الفصل الرابع: نظام المياه ومعالجتها</a>
+            <a href="#fuel">الفصل الخامس: نظام الوقود وغرفة الاحتراق</a>
+            <a href="#location">الفصل السادس: عوامل تحديد الموقع</a>
+            <a href="#proscons">الفصل السابع: مزايا وعيوب</a>
+            <a href="#efficiency">الفصل الثامن: الكفاءة</a>
+            <a href="#faq">الفصل التاسع: الأسئلة الشائعة</a>
+            <a href="#summary">ملخص ونصائح</a>
+          </nav>
+        </div>
       </aside>
 
       <!-- MAIN -->
@@ -464,6 +548,26 @@
 
     // Print shortcut for PDF button
     document.querySelectorAll('a[href="#summary"]').forEach(a=> a.addEventListener('click', (e)=>{ setTimeout(()=>window.print(), 300); }));
+
+    // Toggle Sections visibility
+    const sectionsToggle = document.getElementById('sectionsToggle');
+    const sectionsContent = document.getElementById('sections');
+    const sectionsIcon = document.getElementById('sectionsIcon');
+    
+    sectionsToggle.addEventListener('click', () => {
+      sectionsContent.classList.toggle('collapsed');
+      sectionsIcon.classList.toggle('collapsed');
+    });
+
+    // Toggle TOC visibility
+    const tocToggle = document.getElementById('tocToggle');
+    const tocContent = document.getElementById('toc');
+    const tocIcon = document.getElementById('tocIcon');
+    
+    tocToggle.addEventListener('click', () => {
+      tocContent.classList.toggle('collapsed');
+      tocIcon.classList.toggle('collapsed');
+    });
   </script>
 </body>
 </html>

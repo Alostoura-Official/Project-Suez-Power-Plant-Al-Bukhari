@@ -192,11 +192,16 @@
     /* ===============================
        تذييل الصفحة
     =============================== */
-    footer{
-      margin-top:10px;
-      text-align:center;
-      color:var(--muted);
-      font-size:0.92rem
+    footer {
+    margin-top: 40px;
+    text-align: center;
+    background: var(--panel);
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: var(--muted);
+    font-size: 0.95rem;
+    width: 100%;
     }
 
     /* ===============================

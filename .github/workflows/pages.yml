@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: 🚀 Deploy to GitHub Pages
 
 on:
   push:
@@ -11,27 +11,40 @@ permissions:
   pages: write
   id-token: write
 
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
 jobs:
   deploy:
-    concurrency:
-      group: pages-${{ github.ref }}
-      cancel-in-progress: true
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
-      - name: Checkout repository
+      - name: 🧾 Checkout repository
         uses: actions/checkout@v4
 
-      # إذا كان هناك خطوة بناء (build) مثل minify أو transpile، أضفها هنا
-      # - name: Build
+      # 👇 
+      # - name: 🏗️ Build website
       #   run: |
       #     npm ci
       #     npm run build
 
-      - name: Deploy to GitHub Pages
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: .
+          folder: . # ضع مجلد الملفات النهائية هنا (مثلاً: dist أو build)
 
-      - name: Print deployment success
-        run: echo "✅ Deployment to GitHub Pages successful!"
+      - name: ✅ Print deployment success
+        run: |
+          echo "✅ Deployment to GitHub Pages successful!"
+          echo "🌍 Website URL: ${{ steps.deployment.outputs.page_url }}"
+
+      - name: 🎉 Notify success in workflow
+        if: success()
+        run: |
+          echo "::notice title=Deployment Successful::🎉 تم نشر الموقع بنجاح!"
+          echo "::notice title=Website URL::🌐 ${{ steps.deployment.outputs.page_url }}"

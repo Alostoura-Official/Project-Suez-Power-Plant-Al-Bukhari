@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,11 +15,12 @@ jobs:
   deploy:
     concurrency:
       group: pages-${{ github.ref }}
-      cancel-in-progress: false
+      cancel-in-progress: true
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       # إذا كان هناك خطوة بناء (build) مثل minify أو transpile، أضفها هنا
       # - name: Build
@@ -30,3 +32,6 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: .
+
+      - name: Print deployment success
+        run: echo "✅ Deployment to GitHub Pages successful!"

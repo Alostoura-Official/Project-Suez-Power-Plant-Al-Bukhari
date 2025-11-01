@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="شرح مبسط ومحسّن بصريًا لمحطة كهرباء السويس البخارية — نسخة احترافية لغرض تعليمي." />
+  <meta name="keywords" content="محطة كهرباء, السويس, بخارية, توليد الكهرباء, الغلاية, التوربين, المكثف, معالجة المياه" />
+  <meta name="author" content="الأسطورة" />
+  <title>🏭📘مصطلحات عامة</title>
+  <link rel="icon" href="assets/شعار-الشركة.png">
+
+  <!-- Bootstrap RTL CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+
+
+</head>
+<body>
+  <div class="wrapper">
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <span class="badge">مشروع تعليمي</span>
+            </div>
+            <div class="top-actions">
+              <button id="darkToggle" class="btn btn-sm btn-ghost" title="تبديل الوضع الليلي"><i class="bi bi-moon"></i></button>
+              <a href="#summary" class="btn btn-sm btn-light">طباعة / PDF</a>
+            </div>
+          </div>
+
+          <h1>مشروع محطة كهرباء السويس البخارية</h1>
+          <p class="lead">دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب.</p>
+          <div class="meta muted">إعداد وتصميم: <strong>الأسطورة</strong> · <span class="ms-2">مستوى: تعليمي/جامعي</span></div>
+
+          <div class="mt-3 d-flex gap-2">
+            <a class="btn btn-outline-light btn-sm" href="#intro">ابدأ القراءة</a>
+            <a class="btn btn-light btn-sm" href="#faq">الأسئلة الشائعة</a>
+          </div>
+        </div>
+
+        <div class="hero-graphic text-center">
+          <!-- Decorative SVG + image -->
+          <img src="../assets/محطة-كهرباء-السويس-البخارية.jpg" alt="‏‏محطة كهرباء السويس البخارية" class="cover-img"/>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div class="content">
+      <aside class="toc-card">
+        <!-- Sections (الأقسام) -->
+        <div class="toc-section">
+          <div class="toc-header" id="sectionsToggle">
+            <h3>الأقسام</h3>
+            <button class="toc-toggle" id="sectionsIcon">
+              <i class="bi bi-chevron-up"></i>
+            </button>
+          </div>
+          <nav id="sections" class="toc-content collapsed">
+            <a href="../index.html">🏭🏠 الرئيسية</a> 
+            <a href="../sections/feeders.html">🏭 🔥 قسم الغلاية</a>
+            <a href="../sections/turbines.html">🏭⚙️ قسم التوربينات</a>
+            <a href="../sections/gis.html">🏭⚡نظام GIS</a>
+            <a href="../sections/summary.html">🏭🧩مصطلحات عامة</a>
+			<a href="../sections/about.html">🏭💡عن المشروع</a>
+          </nav>
+        </div>
+       <!-- Table of Contents (فهرس المحتوى) -->
+        <div class="toc-section">
+          <div class="toc-header" id="tocToggle">
+            <h3>فهرس المحتوى</h3>
+            <button class="toc-toggle" id="tocIcon">
+              <i class="bi bi-chevron-up"></i>
+            </button>
+          </div>
+          <nav id="toc" class="toc-content collapsed">
+            
+            <a href="#boiler">🏭 🔥 مصطلحات الغلاية</a>
+            <a href="#turbine">🏭⚙️ مصطلحات التوربينة</a>
+            <a href="#generator">🏭⚡ مصطلحات المولد الكهربائي</a>
+            <a href="#condenser">🏭💧 مصطلحات المكثف والتبريد</a>
+            <a href="#feedwater">🏭🔁مصطلحات دائرة مياه التغذية</a>
+            <a href="#control">🏭🧠مصطلحات أنظمة التحكم والحماية</a>
+            <a href="#auxiliary">🏭🔋مصطلحات الأنظمة المساعدة</a>
+            <a href="#fuel">🏭🛠️مصطلحات أنظمة الوقود والرماد</a>
+            <a href="#chemistry">🏭🔬مصطلحات الكيمياء ومعالجة المياه</a>
+            <a href="#electrical">🏭⚡مصطلحات النظام الكهربائي</a>
+            <a href="#safety">🏭🛡️مصطلحات السلامة والصحة المهنية</a>
+            
+          </nav>
+        </div>
+      </aside>
+        
+
+<section id="glossary" class="section-card reveal">
+  <h2>📘 مصطلحات عامة</h2>
+  <p>يحتوي هذا القسم على أهم المصطلحات والاختصارات المستخدمة في محطة الكهرباء البخارية، مرتبة حسب الأقسام الفنية.</p>
+
+  <!-- 🏭 أولاً: قسم الغلاية -->
+  <section id="boiler" class="section-card reveal">
+  <h4>🏭 أولاً: قسم الغلاية (Boiler Section)</h4>
+    <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>FD Fan</td><td>Forced Draft Fan</td><td>مروحة الدفع القسري</td></tr>
+      <tr><td>ID Fan</td><td>Induced Draft Fan</td><td>مروحة السحب المستحث</td></tr>
+      <tr><td>PA Fan</td><td>Primary Air Fan</td><td>مروحة الهواء الأولي</td></tr>
+      <tr><td>SA Fan</td><td>Secondary Air Fan</td><td>مروحة الهواء الثانوي</td></tr>
+      <tr><td>GR Fan</td><td>Gas Recirculation Fan</td><td>مروحة تدوير الغازات</td></tr>
+      <tr><td>APH</td><td>Air Preheater</td><td>مسخن الهواء</td></tr>
+      <tr><td>ESP</td><td>Electrostatic Precipitator</td><td>المرسب الكهروستاتيكي</td></tr>
+      <tr><td>FURNACE</td><td>Furnace</td><td>غرفة الاحتراق</td></tr>
+      <tr><td>ECON</td><td>Economizer</td><td>مسخن مياه التغذية</td></tr>
+      <tr><td>DRUM</td><td>Steam Drum</td><td>أسطوانة البخار</td></tr>
+      <tr><td>SH</td><td>Superheater</td><td>سخان البخار المحمص</td></tr>
+      <tr><td>RH</td><td>Reheater</td><td>سخان إعادة التسخين</td></tr>
+    </tbody>
+  </table>
+</section>
+  <!-- ⚙️ قسم التوربينة -->
+  <section id="turbine" class="section-card reveal">
+  <h4>⚙️ ثانيًا: قسم التوربينة (Turbine Section)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>HP Turbine</td><td>High Pressure Turbine</td><td>توربينة الضغط العالي</td></tr>
+      <tr><td>IP Turbine</td><td>Intermediate Pressure Turbine</td><td>توربينة الضغط المتوسط</td></tr>
+      <tr><td>LP Turbine</td><td>Low Pressure Turbine</td><td>توربينة الضغط المنخفض</td></tr>
+      <tr><td>MSV</td><td>Main Stop Valve</td><td>صمام الإيقاف الرئيسي</td></tr>
+      <tr><td>CV</td><td>Control Valve</td><td>صمام التحكم</td></tr>
+      <tr><td>EH Oil System</td><td>Electro-Hydraulic System</td><td>نظام الزيت الكهروهيدروليكي</td></tr>
+      <tr><td>Turning Gear</td><td>Turning Gear</td><td>ترس التدوير البطيء</td></tr>
+      <tr><td>GOV</td><td>Governor</td><td>منظم السرعة</td></tr>
+    </tbody>
+  </table>
+</section>
+  <!-- ⚡ قسم المولد -->
+  <section id="generator" class="section-card reveal">
+  <h4>⚡ ثالثًا: قسم المولد الكهربائي (Generator Section)</h4>
+  <table class="table table-bordered comparison-table">
+  
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>GEN</td><td>Generator</td><td>المولد</td></tr>
+      <tr><td>EXC</td><td>Exciter</td><td>المثير</td></tr>
+      <tr><td>AVR</td><td>Automatic Voltage Regulator</td><td>منظم الجهد الآلي</td></tr>
+      <tr><td>STATOR</td><td>Stator</td><td>الجزء الثابت</td></tr>
+      <tr><td>ROTOR</td><td>Rotor</td><td>الجزء الدوار</td></tr>
+      <tr><td>BRG</td><td>Bearing</td><td>المحمل</td></tr>
+    </tbody>
+  </table>
+</section>
+  <!-- 💧 قسم المكثف -->
+  <section id="condenser" class="section-card reveal">
+  <h4>💧 رابعًا: قسم المكثف والتبريد (Condenser & Cooling System)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>COND</td><td>Condenser</td><td>المكثف</td></tr>
+      <tr><td>CW Pump</td><td>Circulating Water Pump</td><td>مضخة مياه التبريد</td></tr>
+      <tr><td>CT</td><td>Cooling Tower</td><td>برج التبريد</td></tr>
+      <tr><td>CEP</td><td>Condensate Extraction Pump</td><td>مضخة سحب المكثف</td></tr>
+      <tr><td>HOG</td><td>Hotwell Overhead Gauge</td><td>مقياس مستوى المكثف</td></tr>
+    </tbody>
+  </table>
+</section>
+  <!-- 🔁 قسم مياه التغذية -->
+  <section id="feedwater" class="section-card reveal">
+  <h4>🔁 خامسًا: دائرة مياه التغذية (Feedwater Cycle)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>BFP</td><td>Boiler Feed Pump</td><td>مضخة تغذية الغلاية</td></tr>
+      <tr><td>HP/LP Heater</td><td>High/Low Pressure Heater</td><td>سخان عالي / منخفض الضغط</td></tr>
+      <tr><td>DEAER</td><td>Deaerator</td><td>مزيل الهواء</td></tr>
+      <tr><td>FW Tank</td><td>Feedwater Tank</td><td>خزان مياه التغذية</td></tr>
+    </tbody>
+  </table>
+</section>
+  <!-- 🧠 أنظمة التحكم -->
+  <section id="control" class="section-card reveal">
+  <h4>🧠 سادسًا: أنظمة التحكم والحماية (Control & Protection Systems)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>DCS</td><td>Distributed Control System</td><td>نظام التحكم الموزع</td></tr>
+      <tr><td>PLC</td><td>Programmable Logic Controller</td><td>متحكم منطقي مبرمج</td></tr>
+      <tr><td>TCS</td><td>Turbine Control System</td><td>نظام التحكم في التوربينة</td></tr>
+      <tr><td>BMS</td><td>Boiler Management System</td><td>نظام إدارة الغلاية</td></tr>
+      <tr><td>MFT</td><td>Master Fuel Trip</td><td>فصل وقود رئيسي</td></tr>
+      <tr><td>UPS</td><td>Uninterruptible Power Supply</td><td>مزود طاقة غير منقطع</td></tr>
+    </tbody>
+  </table>
+</section>
+  <!-- 🔋 الأنظمة المساعدة -->
+  <section id="auxiliary" class="section-card reveal">
+  <h4>🔋 سابعًا: أنظمة المساعدة (Auxiliary Systems)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>ACW</td><td>Auxiliary Cooling Water</td><td>مياه تبريد مساعدة</td></tr>
+      <tr><td>LO System</td><td>Lube Oil System</td><td>نظام زيت التزييت</td></tr>
+      <tr><td>HP/LP Bypass</td><td>High/Low Pressure Bypass</td><td>تجاوز عالي / منخفض الضغط</td></tr>
+      <tr><td>CWPH</td><td>Cooling Water Pump House</td><td>مبنى مضخات التبريد</td></tr>
+    </tbody>
+  </table>
+</section>  
+  <!-- 🛠️ أنظمة الوقود والرماد -->
+  <section id="fuel" class="section-card reveal">
+  <h4>🛠️ ثامنًا: أنظمة الوقود والرماد (Fuel & Ash Handling Systems)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>PF</td><td>Pulverized Fuel</td><td>الوقود المسحوق</td></tr>
+      <tr><td>MBF</td><td>Mills & Burners Function</td><td>وظيفة الطواحين والحراقات</td></tr>
+      <tr><td>HFO</td><td>Heavy Fuel Oil</td><td>زيت الوقود الثقيل</td></tr>
+      <tr><td>LDO</td><td>Light Diesel Oil</td><td>زيت الديزل الخفيف</td></tr>
+      <tr><td>ACS</td><td>Ash Conveying System</td><td>نظام نقل الرماد</td></tr>
+      <tr><td>BAH</td><td>Bottom Ash Hopper</td><td>قمع الرماد السفلي</td></tr>
+      <tr><td>FAH</td><td>Fly Ash Hopper</td><td>قمع الرماد المتطاير</td></tr>
+      <tr><td>MCF</td><td>Mill Coal Feeder</td><td>مغذي الفحم للطاحونة</td></tr>
+      <tr><td>RAW COAL</td><td>Raw Coal Bunker</td><td>صومعة الفحم الخام</td></tr>
+    </tbody>
+  </table>
+</section>
+<!-- 🔬 الكيمياء ومعالجة المياه -->
+<section id="chemistry" class="section-card reveal">
+  <h4>🔬 تاسعًا: الكيمياء ومعالجة المياه (Chemistry & Water Treatment)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>DM</td><td>Demineralized Water</td><td>مياه منزوعة الأملاح</td></tr>
+      <tr><td>RO</td><td>Reverse Osmosis</td><td>التناضح العكسي</td></tr>
+      <tr><td>WTP</td><td>Water Treatment Plant</td><td>محطة معالجة المياه</td></tr>
+      <tr><td>PH</td><td>Power of Hydrogen</td><td>درجة الحموضة</td></tr>
+      <tr><td>TDS</td><td>Total Dissolved Solids</td><td>إجمالي المواد الصلبة الذائبة</td></tr>
+      <tr><td>SiO2</td><td>Silica</td><td>ثاني أكسيد السيليكون</td></tr>
+      <tr><td>COND</td><td>Conductivity</td><td>التوصيلية</td></tr>
+      <tr><td>DO</td><td>Dissolved Oxygen</td><td>الأكسجين الذائب</td></tr>
+      <tr><td>HYDRAZINE</td><td>Hydrazine Dosing</td><td>جرعات الهيدرازين</td></tr>
+    </tbody>
+  </table>
+</section>
+<!-- ⚡ النظام الكهربائي -->
+<section id="electrical" class="section-card reveal">
+  <h4>⚡ عاشرًا: النظام الكهربائي (Electrical System)</h4>
+  <table class="table table-bordered comparison-table">
+    <thead>
+      <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>HV</td><td>High Voltage</td><td>الجهد العالي</td></tr>
+      <tr><td>MV</td><td>Medium Voltage</td><td>الجهد المتوسط</td></tr>
+      <tr><td>LV</td><td>Low Voltage</td><td>الجهد المنخفض</td></tr>
+      <tr><td>CB</td><td>Circuit Breaker</td><td>قاطع الدائرة الكهربائية</td></tr>
+      <tr><td>PT</td><td>Potential Transformer</td><td>محول الجهد</td></tr>
+      <tr><td>CT</td><td>Current Transformer</td><td>محول التيار</td></tr>
+      <tr><td>GIS</td><td>Gas Insulated Switchgear</td><td>معدات التبديل المعزولة بالغاز</td></tr>
+      <tr><td>HT/LT</td><td>High Tension / Low Tension</td><td>التوتر العالي / التوتر المنخفض</td></tr>
+      <tr><td>DG</td><td>Diesel Generator</td><td>المولد الديزل (مولد الطوارئ)</td></tr>
+      <tr><td>NPS</td><td>Neutral Point Stabilizer</td><td>مثبت نقطة التعادل</td></tr>
+      <tr><td>MCC</td><td>Motor Control Center</td><td>مركز تحكم المحركات</td></tr>
+      <tr><td>PCC</td><td>Power Control Center</td><td>مركز تحكم القدرة</td></tr>
+    </tbody>
+  </table>
+  </section> 
+<!-- 🛡️ السلامة والصحة المهنية -->
+  <section id="safety" class="section-card reveal">
+    <h4>🛡️ حادي عشر: السلامة والصحة المهنية (Health, Safety & Environment)</h4>
+    <table class="table table-bordered comparison-table">
+      <thead>
+        <tr><th>الاختصار</th><th>المعنى بالإنجليزية</th><th>الترجمة بالعربية</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>HSE</td><td>Health, Safety & Environment</td><td>الصحة والسلامة والبيئة</td></tr>
+        <tr><td>PTW</td><td>Permit To Work</td><td>تصريح العمل</td></tr>
+        <tr><td>LOTO</td><td>Lock Out Tag Out</td><td>قفل ووسم العزل</td></tr>
+        <tr><td>MSDS</td><td>Material Safety Data Sheet</td><td>ورقة بيانات سلامة المواد</td></tr>
+        <tr><td>PPE</td><td>Personal Protective Equipment</td><td>معدات الحماية الشخصية</td></tr>
+        <tr><td>F&G</td><td>Fire & Gas System</td><td>نظام الحريق والغاز</td></tr>
+        <tr><td>DELUGE</td><td>Deluge System</td><td>نظام الرش الغزير</td></tr>
+        <tr><td>SPRINKLER</td><td>Sprinkler System</td><td>نظام المرشات</td></tr>
+      </tbody>
+    </table>
+  </section>  
+
+
+  
+</section> 
+
+
+
+         </div> 
+          <footer>
+            إعداد وتصميم: <strong style="color: #d32f2f;">الأسطورة</strong> · نسخة احترافية للتعليم · © "مشروع محطة السويس البخارية"
+          </footer>
+        </section>
+		
+		<br><br><br><br>
+
+       <div id="go-to-top-button" class="floating-button"><div class="arrow-up"></div></div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
+
+
+</body>
+</html>

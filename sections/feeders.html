@@ -6,15 +6,490 @@
   <meta name="description" content="شرح مبسط ومحسّن بصريًا لمحطة كهرباء السويس البخارية — نسخة احترافية لغرض تعليمي." />
   <meta name="keywords" content="محطة كهرباء, السويس, بخارية, توليد الكهرباء, الغلاية, التوربين, المكثف, معالجة المياه" />
   <meta name="author" content="الأسطورة" />
-  <title>🏭 🔥 قسم الغلاية</title>
-  <link rel="icon" href="assets/شعار-الشركة.png">
+  <title>🏭 🔥 قسم الغلايات</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/شعار-الشركة.png">
+
   <!-- Bootstrap RTL CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../css/style.css">
+  <style>
+   /* ===============================
+       تعريف المتغيرات العامة للألوان والقيم الأساسية
+    =============================== */
+    :root{
+      --bg: #f4f8fb;                /* لون خلفية الصفحة */
+      --panel:#ffffff;              /* لون خلفية البطاقات والعناصر */
+      --muted:#6b7280;              /* لون النصوص الثانوية */
+      --accent-1: 32 103 178;       /* اللون الرئيسي (كمكونات RGB لاستخدامها مع rgba) */
+      --accent-2: 230 126 34;       /* اللون الثانوي */
+      --glass: rgba(255,255,255,0.6); /* تأثير الزجاج الشفاف */
+      --radius: 14px;               /* درجة تدوير الزوايا */
+      --max-width: 1100px;          /* أقصى عرض للمحتوى */
+    }
+
+    /* ===============================
+       إعداد ألوان الوضع المظلم (Dark Mode)
+    =============================== */
+    :root.dark {
+      --bg: #0f1724;
+      --panel: #0b1220;
+      --muted: #9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+      color: #e2e8f0; /* اللون الأساسي للنص في الوضع المظلم */
+    }
+
+    /* ===============================
+       تلوين النصوص بشكل عام
+    =============================== */
+    body {
+      color: #0f1724; /* اللون الأساسي للنص في الوضع الفاتح */
+    }
+
+    :root.dark body {
+      color: #e2e8f0; /* اللون الأساسي للنص في الوضع المظلم */
+    }
+
+    /* النصوص داخل البطاقات */
+    .section-card {
+      color: inherit; /* يرث اللون من العنصر الأب */
+    }
+
+    /* ===============================
+       تحسين مظهر الجداول في الوضع المظلم
+    =============================== */
+    :root.dark .comparison-table {
+      color: #e2e8f0;
+      background-color: var(--panel);
+    }
+
+    :root.dark .comparison-table th {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+
+    :root.dark .comparison-table td {
+      background-color: var(--panel);
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    :root.dark .comparison-table thead th {
+      border-bottom-color: #334155;
+    }
+
+    /* ===============================
+       تحسين ألوان النصوص في عناصر أخرى للوضع المظلم
+    =============================== */
+    :root.dark .accordion-button {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+
+    :root.dark .accordion-body {
+      background-color: #1e293b;
+      color: #cbd5e1;
+    }
+
+    /* الروابط */
+    :root.dark a {
+      color: #60a5fa;
+    }
+
+    :root.dark .toc-card a {
+      color: #cbd5e1;
+    }
+
+    :root.dark .toc-card a.active, 
+    :root.dark .toc-card a:hover {
+      color: #60a5fa;
+    }
+
+    /* التذييل */
+    :root.dark footer {
+      color: #94a3b8;
+    }
+
+    /* ===============================
+       إعدادات عامة للجسم والتخطيط
+    =============================== */
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; min-height:100%;
+      font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(var(--accent-1)/0.08) 0%, transparent 8%), var(--bg);
+      color: #0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.65;
+      display:flex; justify-content:center; padding:28px 16px;
+    }
+
+    .wrapper{width:100%; max-width:var(--max-width);}
+
+    /* ===============================
+       قسم الـ HERO / الغلاف العلوي
+    =============================== */
+    .hero{
+      background: linear-gradient(135deg, rgba(var(--accent-1)/1) 0%, rgba(46,134,193,0.9) 50%, rgba(var(--accent-2)/1) 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(15,23,36,0.08);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero-grid{display:grid; grid-template-columns: 1fr 420px; gap:20px; align-items:center;}
+    .hero h1{font-size:1.9rem; margin:0 0 8px 0; font-weight:700; letter-spacing: -0.4px}
+    .hero p.lead{opacity:0.92; margin:0 0 12px 0}
+    .hero .meta{font-size:0.9rem; opacity:0.92}
+    .hero .badge{background:rgba(255,255,255,0.12); color:#fff; border-radius:999px; padding:6px 10px; font-weight:600}
+
+    .hero-graphic{display:flex; align-items:center; justify-content:center}
+    .cover-img{width:420px; max-width:100%; height:auto; border-radius:10px; box-shadow:0 12px 30px rgba(2,6,23,0.25); border:1px solid rgba(255,255,255,0.06)}
+
+    /* ===============================
+       شريط الأدوات العلوي داخل الـ hero
+    =============================== */
+    .top-actions{display:flex; gap:8px; align-items:center; justify-content:flex-end}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.12); color: #fff}
+
+    /* ===============================
+       هيكل الصفحة العام (المحتوى + الفهرس)
+    =============================== */
+    .content{display:grid; grid-template-columns: 280px 1fr; gap:20px; margin-top:18px}
+
+    /* ===============================
+       الشريط الجانبي / جدول المحتويات
+    =============================== */
+    .toc-card{
+      position:sticky;
+      top:26px;
+      align-self:start;
+      border-radius:12px;
+      background:var(--panel);
+      padding:14px;
+      box-shadow:0 6px 18px rgba(15,23,36,0.06)
+    }
+    .toc-card h3{margin:0 0 10px 0; color: rgba(var(--accent-1)/1);}
+    .toc-card a{display:block; padding:8px 10px; border-radius:8px; color:var(--muted); text-decoration:none}
+    .toc-card a.active, .toc-card a:hover{
+      background:linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+      color:rgb(var(--accent-1));
+      font-weight:600
+    }
+
+    /* ===============================
+       بطاقات الأقسام الرئيسية
+    =============================== */
+    .section-card{
+      background:var(--panel);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 6px 18px rgba(2,6,23,0.04);
+      margin-bottom:16px;
+      transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s
+    }
+    .section-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 20px 40px rgba(2,6,23,0.08)
+    }
+    .section-card h2{color: rgb(var(--accent-1)); margin-top:0}
+    .caption{font-size:0.85rem; color:var(--muted); text-align:right}
+
+    .sys-img{width:100%; height:auto; border-radius:8px; display:block; margin:8px 0; box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+
+    /* نصوص مساعدة صغيرة */
+    .muted{color:var(--muted)}
+    .q{color:rgb(var(--accent-2)); font-weight:700}
+
+    /* ===============================
+       تذييل الصفحة
+    =============================== */
+    footer {
+    margin-top: 40px;
+    text-align: center;
+    background: var(--panel);
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: var(--muted);
+    font-size: 0.95rem;
+    width: 100%;
+    }
+
+    /* ===============================
+       استجابة التصميم للشاشات الصغيرة
+    =============================== */
+    @media (max-width: 992px){
+      .hero-grid{grid-template-columns:1fr 300px}
+      .content{grid-template-columns: 1fr;}
+      .toc-card{position:relative; top:auto}
+    }
+    @media (max-width:576px){
+      body{padding:18px}
+      .hero{padding:18px}
+      .hero h1{font-size:1.4rem}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-graphic{order:-1}
+    }
+
+    /* ===============================
+       تأثيرات الظهور عند التمرير
+    =============================== */
+    .reveal{opacity:0; transform: translateY(10px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.visible{opacity:1; transform:none}
+
+    /* ===============================
+       إعدادات الطباعة
+    =============================== */
+    @media print{
+      body{background:white; color:black}
+      .hero{box-shadow:none; border-radius:0}
+      nav, .toc-card, .top-actions { display:none }
+      .section-card{box-shadow:none}
+    }
+
+    /* ===============================
+       أقسام الفهرس القابلة للطي (Collapsible TOC)
+    =============================== */
+    .toc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.05), rgba(var(--accent-2)/0.02));
+      transition: background 0.3s ease;
+    }
+    
+    .toc-header:hover {
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+    }
+    
+    .toc-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .toc-toggle {
+      background: none;
+      border: none;
+      color: rgba(var(--accent-1)/1);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    
+    .toc-toggle:hover {
+      background: rgba(var(--accent-1)/0.1);
+    }
+    
+    .toc-toggle.collapsed {
+      transform: rotate(180deg);
+    }
+    
+    .toc-content {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+      max-height: 500px;
+      opacity: 1;
+    }
+    
+    .toc-content.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+    
+    .toc-section {
+      margin-bottom: 16px;
+    }
+    
+    .toc-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* ===============================
+       زر الطفو للصعود إلى أعلى الصفحة - محدث
+    =============================== */	
+    .floating-button {
+      /* التموضع والتخطيط */
+      position: fixed;               /* تثبيت الزر في مكانه أثناء التمرير */
+      bottom: 20px;                  /* المسافة من الأسفل */
+      left: 20px;                    /* المسافة من اليسار */
+      width: 50px;                   /* عرض الزر */
+      height: 50px;                  /* ارتفاع الزر */
+    
+      /* المظهر والتصميم */
+      background-color: #210f80;     /* لون الخلفية الأزرق الداكن */
+      border-radius: 50%;            /* جعل الزر دائرياً */
+      display: none;                 /* إخفاء الزر في البداية */
+      align-items: center;           /* محاذاة المحتوى عمودياً في المنتصف */
+      justify-content: center;       /* محاذاة المحتوى أفقياً في المنتصف */
+      cursor: pointer;               /* تغيير شكل المؤشر إلى يد عند التمرير */
+    
+      /* التأثيرات البصرية */
+      opacity: 0.8;                  /* شفافية خفيفة */
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5); /* ظل خفيف حول الزر */
+      transition: all 0.3s ease;     /* تأثيرات انتقالية سلسة */
+      z-index: 1000;                 /* التأكد من ظهور الزر فوق كل العناصر */
+    }
+
+    /* تأثيرات عند تمرير الماوس فوق الزر */
+    .floating-button:hover {
+      background-color: #fbd034;     /* تغيير اللون إلى الأصفر عند التمرير */
+      transform: scale(1.1);         /* تكبير الزر قليلاً عند التمرير */
+      opacity: 1;                    /* إزالة الشفافية عند التمرير */
+    }
+
+    /* تصميم السهم داخل الزر */
+    .arrow-up {
+      /* إنشاء شكل السهم باستخدام حدود CSS */
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;     /* الحد الأيسر شفاف */
+      border-right: 12px solid transparent;    /* الحد الأيمن شفاف */
+      border-bottom: 25px solid white;         /* الحد السفلي يشكل رأس السهم */
+      
+      /* تموضع السهم في منتصف الزر */
+      position: absolute;
+      top: 50%;                    /* منتصف عمودياً */
+      left: 50%;                   /* منتصف أفقياً */
+      transform: translate(-50%, -50%); /* ضبط المركز بدقة */
+    }
+
+    /* ===============================
+       تحسينات للوضع المظلم
+    =============================== */
+    :root.dark .floating-button {
+      background-color: #3b82f6;    /* لون أزرق أكثر وضوحاً في الوضع المظلم */
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    :root.dark .floating-button:hover {
+      background-color: #fbbf24;    /* لون أصفر مختلف قليلاً في الوضع المظلم */
+    }
+/* ===============================
+   إصلاحات إضافية للهواتف الصغيرة جداً
+   =============================== */
+@media (max-width: 380px) {
+  .section-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .section-card h4 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .section-card h2 {
+    font-size: 1.3rem;
+  }
+  
+  .comparison-table {
+    font-size: 0.75rem;
+  }
+  
+  .comparison-table table {
+    min-width: 380px;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 6px 8px;
+  }
+  
+  /* تحسين التباعد العام */
+  body {
+    padding: 12px;
+  }
+  
+  .hero {
+    padding: 15px;
+  }
+  
+  .hero h1 {
+    font-size: 1.3rem;
+  }
+  
+  .toc-card {
+    padding: 12px;
+  }
+  
+  .toc-card a {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===============================
+   إصلاحات للهواتف المتوسطة
+   =============================== */
+@media (max-width: 576px) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* تحسين عرض الجداول */
+  .comparison-table {
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  
+  .comparison-table th {
+    font-weight: 600;
+    background-color: rgba(var(--accent-1)/0.1);
+  }
+  
+
+
+/* ===============================
+   تحسينات إضافية للقراءة على الهواتف
+   =============================== */
+@media (max-width: 576px) {
+  /* تحسين تباعد الأسطر للنصوص */
+  body {
+    line-height: 1.6;
+  }
+  
+  /* تحسين عناوين الجداول */
+  .comparison-table thead th {
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  /* تأثيرات بصرية محسنة للهواتف */
+  .section-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2,6,23,0.1);
+  }
+  
+  /* تحسين أزرار التمرير للجداول */
+  .comparison-table::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .comparison-table::-webkit-scrollbar-thumb {
+    background: rgba(var(--accent-1)/0.3);
+    border-radius: 3px;
+  }
+}
+  </style>
 
 
 </head>
@@ -26,58 +501,141 @@
         <div>
           <div class="d-flex justify-content-between align-items-start mb-2">
             <div>
-              <span class="badge">مشروع تعليمي</span>
+              <span class="badge" data-ar="🏭 🔥 قسم الغلايات" data-en="🏭 🔥 Boiler Section">🏭 🔥 قسم الغلايات</span>
             </div>
             <div class="top-actions">
-              <button id="darkToggle" class="btn btn-sm btn-ghost" title="تبديل الوضع الليلي"><i class="bi bi-moon"></i></button>
-              <a href="#summary" class="btn btn-sm btn-light">طباعة / PDF</a>
+              <button id="darkToggle" class="btn btn-sm btn-ghost" title="تبديل الوضع الليلي" data-ar-title="تبديل الوضع الليلي" data-en-title="Toggle Dark Mode">
+                <i class="bi bi-moon"></i>
+              </button>
+              <button id="lang-toggle" class="btn btn-outline-light btn-sm" aria-pressed="false" data-ar="🌐 English" data-en="🌐 العربية">🌐 English</button>
+              <a href="#summary" class="btn btn-sm btn-light" data-ar="🖨 طباعة / PDF" data-en="🖨 Print / PDF">طباعة / PDF</a>
             </div>
           </div>
 
-          <h1>مشروع محطة كهرباء السويس البخارية</h1>
-          <p class="lead">دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب.</p>
-          <div class="meta muted">إعداد وتصميم: <strong>الأسطورة</strong> · <span class="ms-2">مستوى: تعليمي/جامعي</span></div>
+          <h1 data-ar="مشروع محطة كهرباء السويس البخارية" data-en="Suez Steam Power Plant Project">مشروع محطة كهرباء السويس البخارية</h1>
+          <p class="lead" data-ar="دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب." 
+             data-en="A simplified and visually designed study to explain the plant's basic systems: boiler, turbine, condenser, water treatment, fuel and more — student-oriented presentation.">
+            دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب.
+          </p>
+          <div class="meta muted">
+            <span data-ar="إعداد وتصميم:" data-en="Prepared and designed by:"style="color: #000;">إعداد وتصميم:</span> 
+            <strong data-ar="الأسطورة" data-en="Alostoura"style="color: #000;">الأسطورة</strong> · 
+            <span class="ms-2" data-ar="مستوى: تعليمي/جامعي" data-en="Level: Educational/University"style="color: #000;">مستوى: تعليمي/جامعي</span>
+          </div>
 
           <div class="mt-3 d-flex gap-2">
-            <a class="btn btn-outline-light btn-sm" href="#intro">ابدأ القراءة</a>
-            <a class="btn btn-light btn-sm" href="#faq">الأسئلة الشائعة</a>
+            <a class="btn btn-outline-light btn-sm" href="#boiler" data-ar="📖 ابدأ القراءة" data-en="📖 Start Reading">📖 ابدأ القراءة</a>
+            <a class="btn btn-light btn-sm" href="../index.html" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</a>
           </div>
         </div>
 
         <div class="hero-graphic text-center">
           <!-- Decorative SVG + image -->
-          <img src="../assets/محطة-كهرباء-السويس-البخارية.jpg" alt="‏‏محطة كهرباء السويس البخارية" class="cover-img"/>
+          <img src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/محطة-كهرباء-السويس-البخارية.jpg" 
+               alt="‏‏محطة كهرباء السويس البخارية" 
+               data-ar-alt="محطة كهرباء السويس البخارية" 
+               data-en-alt="Suez Steam Power Plant" 
+               class="cover-img"/>
         </div>
       </div>
     </header>
 
     <!-- CONTENT AREA -->
-    <div class="content">
-      <aside class="toc-card">
+<div class="content">
+    <aside class="toc-card">
         <!-- Sections (الأقسام) -->
         <div class="toc-section">
-          <div class="toc-header" id="sectionsToggle">
-            <h3>الأقسام</h3>
-            <button class="toc-toggle" id="sectionsIcon">
-              <i class="bi bi-chevron-up"></i>
-            </button>
-          </div>
-          <nav id="sections" class="toc-content collapsed">
-            <a href="../index.html">🏭🏠 الرئيسية</a> 
-            <a href="../sections/feeders.html">🏭 🔥 قسم الغلاية</a>
-            <a href="../sections/turbines.html">🏭⚙️ قسم التوربينات</a>
-            <a href="../sections/gis.html">🏭⚡نظام GIS</a>
-            <a href="../sections/summary.html">🏭🧩مصطلحات عامة</a>
-			<a href="../sections/about.html">🏭💡عن المشروع</a>
-          </nav>
+            <div class="toc-header" id="sectionsToggle">
+                <h3 data-ar="الأقسام" data-en="Sections">الأقسام</h3>
+                <button class="toc-toggle" id="sectionsIcon">
+                    <i class="bi bi-chevron-up"></i>
+                </button>
+            </div>
+            <nav id="sections" class="toc-content collapsed">
+                <a href="../sections/feeders.html" data-ar="🏭 🔥 قسم الغلاية" data-en="🏭 🔥 Boiler Section">🏭 🔥 قسم الغلاية</a>
+                <a href="../sections/turbines.html" data-ar="🏭⚙️ قسم التوربينات" data-en="🏭⚙️ Turbine Section">🏭⚙️ قسم التوربينات</a>
+                <a href="../sections/gis.html" data-ar="🏭⚡نظام GIS" data-en="🏭⚡ GIS System">🏭⚡نظام GIS</a>
+                <a href="../sections/summary.html" data-ar="🏭🧩مصطلحات عامة" data-en="🏭🧩 General Glossary">🏭🧩مصطلحات عامة</a>
+                <a href="../sections/about.html" data-ar="🏭💡عن المشروع" data-en="🏭💡 About Project">🏭💡عن المشروع</a>
+            </nav>
         </div>
-      </aside>
+        <!-- Table of Contents (فهرس المحتوى) -->
+        <div class="toc-section">
+            <div class="toc-header" id="tocToggle">
+                <h3 data-ar="فهرس المحتوى" data-en="Table of Contents">فهرس المحتوى</h3>
+                <button class="toc-toggle" id="tocIcon">
+                    <i class="bi bi-chevron-up"></i>
+                </button>
+            </div>
+            <nav id="toc" class="toc-content collapsed">
+            <a href="#boiler" data-ar=" نظام الغلاية" data-en="Chapter 1: Boiler System"> نظام الغلاية</a>
+            <a href="#turbine" data-ar=" التوربين والمولد" data-en="Chapter 2: Turbine and Generator"> التوربين والمولد</a>
+            <a href="#condenser" data-ar=" المكثف ونظام التبريد" data-en="Chapter 3: Condenser and Cooling System"> المكثف ونظام التبريد</a>
+            <a href="#water" data-ar=" نظام المياه ومعالجتها" data-en="Chapter 4: Water System and Treatment"> نظام المياه ومعالجتها</a>
+            <a href="#fuel" data-ar=" نظام الوقود وغرفة الاحتراق" data-en="Chapter 5: Fuel System and Combustion Chamber"> نظام الوقود وغرفة الاحتراق</a>
+            <a href="#location" data-ar=" عوامل تحديد الموقع" data-en="Chapter 6: Location Factors"> عوامل تحديد الموقع</a>
+            <a href="#proscons" data-ar=" مزايا وعيوب" data-en="Chapter 7: Advantages and Disadvantages"> مزايا وعيوب</a>
+            <a href="#efficiency" data-ar=" الكفاءة" data-en="Chapter 8: Efficiency"> الكفاءة</a>
+            <a href="#faq" data-ar=" الأسئلة الشائعة" data-en="Chapter 9: FAQ"> الأسئلة الشائعة</a>
+            <a href="#summary" data-ar="ملخص ونصائح" data-en="Summary and Tips">ملخص ونصائح</a>
+            </nav>
+        </div>
+    </aside>
+
+    <section id="glossary" class="section-card reveal">
+        <h2 data-ar="🏭 🔥 قسم الغلايات" data-en="🏭 🔥 Boiler Section">🏭 🔥 قسم الغلايات</h2>
+        <p data-ar="الغلاية هي قلب المحطة، ووظيفتها تحويل ماء التغذية إلى بخار عالي الضغط ودرجة الحرارة عن طريق حرق الوقود في غرفة الاحتراق. يتكون النظام من ممرات المياه، مشعّات حرارية، مجرى العادم، ونظام إمداد الوقود والاشتعال. في محطة السويس: ضغط البخار الرئيسي نحو <strong>166.5 بار</strong>، ودرجة حرارة التشغيل قد تصل إلى حوالي <strong>540°م</strong>." 
+                   data-en="The boiler is the heart of the plant, and its function is to convert feedwater into high-pressure and high-temperature steam by burning fuel in the combustion chamber. The system consists of water passages, heat radiators, exhaust duct, and fuel supply and ignition system. In Suez plant: main steam pressure is about <strong>166.5 bar</strong>, and operating temperature can reach about <strong>540°C</strong>.">
+                    الغلاية هي قلب المحطة، ووظيفتها تحويل ماء التغذية إلى بخار عالي الضغط ودرجة الحرارة عن طريق حرق الوقود في غرفة الاحتراق. يتكون النظام من ممرات المياه، مشعّات حرارية، مجرى العادم، ونظام إمداد الوقود والاشتعال. في محطة السويس: ضغط البخار الرئيسي نحو <strong>166.5 بار</strong>، ودرجة حرارة التشغيل قد تصل إلى حوالي <strong>540°م</strong>.
+                </p>
+    </section>
+<section id="boiler" class="section-card reveal">
+        <h2 data-ar=" نظام الغلاية" data-en="Chapter 1: Boiler System"> نظام الغلاية</h2>
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5">
+                <img class="sys-img" alt="مخطط غلاية" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/الغلايات.webp">
+                <div class="caption" data-ar="مخطط عام لانتاج الكهرباء" data-en="General electricity production diagram">مخطط عام لانتاج الكهرباء</div>
+                <img class="sys-img" alt="الغلاية البخارية" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/مولد.webp">
+                <div class="caption" data-ar="مخطط الغلاية البخارية مع أجزاء للدمى" data-en="Steam boiler diagram with dummy parts">مخطط الغلاية البخارية مع أجزاء للدمى</div>
+            </div>
+    
+</section> 
+
+<section id="fuel" class="section-card reveal">
+        <h2 data-ar=" نظام الوقود وغرفة الاحتراق" data-en="Chapter 5: Fuel System and Combustion Chamber"> نظام الوقود وغرفة الاحتراق</h2>
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5">
+                <img class="sys-img" alt="غرفة احتراق" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/غرفة-احتراق.jpg">
+                <div class="caption" data-ar="غرفة احتراق ومشعل — مثال توضيحي" data-en="Combustion chamber and burner - illustrative example">غرفة احتراق ومشعل — مثال توضيحي</div>
+                <img class="sys-img" alt="مسار المياة" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/مسار-المياة.jpg">
+                <div class="caption" data-ar="مسار-المياة — مثال توضيحي" data-en="Water path - illustrative example">مسار-المياة — مثال توضيحي</div>
+            </div>
+            <div class="col-12 col-md-7">
+                <p data-ar="خطوط إمداد الغاز الطبيعي (الوقود الأساسي) والمازوت (احتياطي) تصل إلى المشعل داخل غرفة الاحتراق. المازوت يحتاج تسخينًا قبل الضخ، وتوجد أنظمة أمان لمنع التسرب، صمامات فصل، وكواشف للهب والغازات." 
+                   data-en="Natural gas supply lines (primary fuel) and mazut (backup) reach the burner inside the combustion chamber. Mazut requires heating before pumping, and there are safety systems to prevent leaks, isolation valves, and flame and gas detectors.">
+                    خطوط إمداد الغاز الطبيعي (الوقود الأساسي) والمازوت (احتياطي) تصل إلى المشعل داخل غرفة الاحتراق. المازوت يحتاج تسخينًا قبل الضخ، وتوجد أنظمة أمان لمنع التسرب، صمامات فصل، وكواشف للهب والغازات.
+                </p>
+ </section>
+
+    
+
+
+  
+</section> 
+
+
+
         
-        
-          </div>
+
+         </div> 
           <footer>
-            إعداد وتصميم: <strong style="color: #d32f2f;">الأسطورة</strong> · نسخة احترافية للتعليم · © "مشروع محطة السويس البخارية"
-          </footer>
+    <span data-ar="إعداد وتصميم:" data-en="Prepared and designed by:">إعداد وتصميم:</span> 
+    <strong style="color: #d32f2f;">
+        <span data-ar="الأسطورة" data-en="Alostoura">الأسطورة</span>
+    </strong> · 
+    <span data-ar="نسخة احترافية للتعليم" data-en="Professional educational version">نسخة احترافية للتعليم</span> · 
+    <span data-ar="© مشروع محطة السويس البخارية" data-en="© Suez Steam Power Plant Project">© "مشروع محطة السويس البخارية"</span>
+        </footer>
         </section>
 		
 		<br><br><br><br>
@@ -90,8 +648,328 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/main.js"></script>
+  <script>
+    // ===============================
+    // تهيئة عامة للصفحة
+    // ===============================
+    document.addEventListener('DOMContentLoaded', function() {
+        // ===============================
+        // تبديل الوضع المظلم
+        // ===============================
+        const toggle = document.getElementById('darkToggle');
+        const root = document.documentElement;
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+        /**
+         * تطبيق الوضع المظلم أو الفاتح
+         * @param {boolean} dark - true للوضع المظلم, false للوضع الفاتح
+         */
+        function applyDark(dark){
+            if(dark) {
+                root.classList.add('dark');
+            } else {
+                root.classList.remove('dark');
+            }
+            toggle.innerHTML = dark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+        }
+
+        // التهيئة الأولية للوضع المظلم
+        const saved = localStorage.getItem('prefers-dark');
+        if(saved !== null) {
+            applyDark(saved === '1');
+        } else {
+            applyDark(prefersDark);
+        }
+
+        toggle.addEventListener('click', ()=>{
+            const isDark = root.classList.toggle('dark');
+            localStorage.setItem('prefers-dark', isDark ? '1' : '0');
+            applyDark(isDark);
+        });
+
+        // ===============================
+        // تأثير الظهور عند التمرير (Reveal Animation)
+        // ===============================
+        const reveals = document.querySelectorAll('.reveal');
+        if(reveals.length > 0) {
+            const io = new IntersectionObserver(entries =>{
+                entries.forEach(e=>{
+                    if(e.isIntersecting){ 
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                })
+            }, { threshold: 0.12 });
+            
+            reveals.forEach(r=>io.observe(r));
+        }
+
+        // ===============================
+        // تفعيل الروابط النشطة في جدول المحتويات
+        // ===============================
+        const tocLinks = document.querySelectorAll('#toc a');
+        
+        function setActiveToc(){
+            let index = -1;
+            const sections = Array.from(tocLinks).map(a=>document.querySelector(a.getAttribute('href')));
+            
+            sections.forEach((sec,i)=>{
+                if(sec) {
+                    const r = sec.getBoundingClientRect();
+                    if(r.top <= 120) index = i;
+                }
+            });
+            
+            tocLinks.forEach((a,i)=> a.classList.toggle('active', i===index));
+        }
+        
+        if(tocLinks.length > 0) {
+            window.addEventListener('scroll', setActiveToc);
+            setActiveToc();
+        }
+
+        // ===============================
+        // التمرير السلس لروابط جدول المحتويات
+        // ===============================
+        document.querySelectorAll('a[href^="#"]').forEach(a=>{
+            a.addEventListener('click', function(e){
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target){ 
+                    e.preventDefault();
+                    target.scrollIntoView({behavior:'smooth', block:'start'});
+                }
+            });
+        });
+
+        // ===============================
+        // اختصار الطباعة لزر PDF
+        // ===============================
+        document.querySelectorAll('a[href="#summary"]').forEach(a=> 
+            a.addEventListener('click', (e)=>{ 
+                setTimeout(()=>window.print(), 300);
+            })
+        );
+
+        // ===============================
+        // تبديل ظهور الأقسام (قابل للطي)
+        // ===============================
+        const sectionsToggle = document.getElementById('sectionsToggle');
+        const sectionsContent = document.getElementById('sections');
+        const sectionsIcon = document.getElementById('sectionsIcon');
+        
+        if(sectionsToggle && sectionsContent) {
+            sectionsToggle.addEventListener('click', () => {
+                sectionsContent.classList.toggle('collapsed');
+                if(sectionsIcon) sectionsIcon.classList.toggle('collapsed');
+            });
+        }
+
+        // ===============================
+        // تبديل ظهور جدول المحتويات (قابل للطي)
+        // ===============================
+        const tocToggle = document.getElementById('tocToggle');
+        const tocContent = document.getElementById('toc');
+        const tocIcon = document.getElementById('tocIcon');
+        
+        if(tocToggle && tocContent) {
+            tocToggle.addEventListener('click', () => {
+                tocContent.classList.toggle('collapsed');
+                if(tocIcon) tocIcon.classList.toggle('collapsed');
+            });
+        }
+
+        // ===============================
+        // زر الصعود إلى الأعلى
+        // ===============================
+        const goToTopButton = document.getElementById('go-to-top-button');
+
+        function toggleScrollButton() {
+            if(goToTopButton) {
+                goToTopButton.style.display = window.scrollY > 100 ? 'flex' : 'none';
+            }
+        }
+
+        window.addEventListener('scroll', toggleScrollButton);
+        toggleScrollButton();
+
+        if(goToTopButton) {
+            goToTopButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    });
+</script>
+
+<script>
+// Language toggle: switches between Arabic (ar) and English (en)
+// default language 'ar'
+(function(){
+  const defaultLang = 'ar';
+  const storageKey = 'pspp_lang';
+  const htmlEl = document.documentElement;
+  const bsLtr = document.getElementById('bs-ltr');
+  const bsRtl = document.getElementById('bs-rtl');
+  const fontAr = document.getElementById('font-ar');
+  const fontEn = document.getElementById('font-en');
+
+  function getSavedLang(){ return localStorage.getItem(storageKey) || defaultLang; }
+
+  function applyLang(lang){
+    // direction and lang attribute
+    htmlEl.lang = lang;
+    htmlEl.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    // toggle Bootstrap CSS via media attribute
+    if(bsRtl && bsLtr){
+      if(lang === 'ar'){ bsRtl.media = 'all'; bsLtr.media = 'none'; }
+      else { bsRtl.media = 'none'; bsLtr.media = 'all'; }
+    }
+    // toggle fonts
+    if(fontAr && fontEn){
+      if(lang === 'ar'){ fontAr.media = 'all'; fontEn.media = 'none'; }
+      else { fontAr.media = 'none'; fontEn.media = 'all'; }
+    }
+    // add body class for font family control
+    document.body.classList.remove('lang-ar','lang-en');
+    document.body.classList.add(lang === 'ar' ? 'lang-ar' : 'lang-en');
+
+    // swap all elements with data-ar attribute
+    document.querySelectorAll('[data-ar]').forEach(el => {
+      const ar = el.getAttribute('data-ar');
+      const en = el.getAttribute('data-en') || ar;
+      if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+     el.placeholder = (lang === 'ar') ? ar : en;
+      } else {
+     el.innerHTML = (lang === 'ar') ? ar : en;
+      }
+    });
+
+    // update lang button text
+    document.querySelectorAll('#lang-toggle').forEach(btn => {
+      btn.textContent = (lang === 'ar') ? '🌐 English' : '🌐 العربية';
+    });
+
+    localStorage.setItem(storageKey, lang);
+  }
+
+  // initial apply
+  document.addEventListener('DOMContentLoaded', function(){
+    const saved = getSavedLang();
+    applyLang(saved);
+
+    // wire up toggles
+    document.querySelectorAll('#lang-toggle').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const current = localStorage.getItem(storageKey) || defaultLang;
+        const next = current === 'ar' ? 'en' : 'ar';
+        applyLang(next);
+      });
+    });
+
+    // dark mode button placeholder (optional)
+    const darkBtn = document.getElementById('darkToggle');
+    if(darkBtn){
+      darkBtn.addEventListener('click', function(){
+        document.body.classList.toggle('dark-mode');
+      });
+    }
+  });
+})();
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const CACHE_NAME = "Suez-Power-Plant-image-cache-v1"; // اسم الكاش
+        const defaultImage = "https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/شعار-الشركة.png"; // صورة افتراضية
+        const images = document.querySelectorAll("img");
+
+        // 🟢 تحميل الصور عند فتح الصفحة
+        for (let img of images) {
+            const imgSrc = img.getAttribute("data-src") || img.src;
+            const cachedImage = await getCachedImage(imgSrc);
+
+            if (cachedImage) {
+                img.src = cachedImage; // استخدام الصورة من الكاش أو localStorage
+                console.log("✅ تحميل من الكاش:", imgSrc);
+            } else {
+                loadImageFromNetwork(img, imgSrc);
+            }
+
+            // 🟡 في حالة فشل تحميل الصورة، يتم استبدالها بالصورة الافتراضية
+            img.onerror = function () {
+                console.warn("⚠️ فشل تحميل الصورة، تعيين الصورة الافتراضية:", imgSrc);
+                img.src = defaultImage;
+            };
+        }
+
+        // 🟠 تحميل الصورة من الإنترنت وتخزينها
+        async function loadImageFromNetwork(img, imgSrc) {
+            try {
+                const response = await fetch(imgSrc);
+                if (!response.ok) throw new Error("❌ فشل تحميل الصورة من الشبكة.");
+
+                const blob = await response.blob();
+                const imageURL = URL.createObjectURL(blob);
+
+                img.src = imageURL; // عرض الصورة
+                await cacheImage(imgSrc, blob); // تخزين الصورة في الكاش
+
+            } catch (error) {
+                console.error("❌ خطأ في تحميل الصورة:", imgSrc, error);
+                img.src = defaultImage;
+            }
+        }
+
+        // 🔵 جلب الصورة من الكاش أو localStorage
+        async function getCachedImage(imgSrc) {
+            const cache = await caches.open(CACHE_NAME);
+            const cachedResponse = await cache.match(imgSrc);
+
+            if (cachedResponse) {
+                return URL.createObjectURL(await cachedResponse.blob());
+            } else {
+                return localStorage.getItem(imgSrc);
+            }
+        }
+
+        // 🔵 تخزين الصورة في `Cache API` و `localStorage`
+        async function cacheImage(imgSrc, blob) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put(imgSrc, new Response(blob)); // تخزين الصورة في الكاش
+
+            // تخزين الصورة في `localStorage` إذا كان الحجم صغيرًا
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                try {
+                    localStorage.setItem(imgSrc, reader.result);
+                } catch (e) {
+                    console.warn("⚠️ localStorage ممتلئ، الصورة لن يتم تخزينها.");
+                }
+            };
+            reader.readAsDataURL(blob);
+        }
+
+        // 🟣 عند فقد الاتصال، تحميل الصور من الكاش أو localStorage
+        window.addEventListener("offline", async () => {
+            console.warn("📴 الوضع غير متصل بالإنترنت، تحميل الصور من التخزين...");
+            for (let img of images) {
+                const imgSrc = img.getAttribute("data-src") || img.src;
+                const cachedImage = await getCachedImage(imgSrc);
+                if (cachedImage) {
+                    img.src = cachedImage;
+                }
+            }
+        });
+
+        // 🟢 عند استعادة الإنترنت، يتم تحديث الصور
+        window.addEventListener("online", async () => {
+            console.log("📡 استعادة الإنترنت، تحديث الصور...");
+            for (let img of images) {
+                const imgSrc = img.getAttribute("data-src") || img.src;
+                loadImageFromNetwork(img, imgSrc);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

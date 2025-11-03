@@ -11,17 +11,491 @@
   <meta property="og:title" content="مشروع محطة كهرباء السويس البخارية" />
   <meta property="og:description" content="شرح مبسط لدورة البخار ومكونات محطة توليد الكهرباء – Boiler, Turbine, Condenser..." />
   <meta property="og:url" content="https://alostoura-official.github.io/Project-Suez-Power-Plant-Al-Bukhari/" />
-  <meta property="og:image" content="assets/شعار-الشركة.png" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/شعار-الشركة.png" />
   <meta name="author" content="الأسطورة" />
-  <title>مشروع محطة كهرباء السويس البخارية</title>
-  <link rel="icon" href="assets/شعار-الشركة.png">
+  <title>مشروع محطة كهرباء السويس البخارية 🏭</title>
+  <link rel="icon" href="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/شعار-الشركة.png">
   <!-- Bootstrap RTL CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+   /* ===============================
+       تعريف المتغيرات العامة للألوان والقيم الأساسية
+    =============================== */
+    :root{
+      --bg: #f4f8fb;                /* لون خلفية الصفحة */
+      --panel:#ffffff;              /* لون خلفية البطاقات والعناصر */
+      --muted:#6b7280;              /* لون النصوص الثانوية */
+      --accent-1: 32 103 178;       /* اللون الرئيسي (كمكونات RGB لاستخدامها مع rgba) */
+      --accent-2: 230 126 34;       /* اللون الثانوي */
+      --glass: rgba(255,255,255,0.6); /* تأثير الزجاج الشفاف */
+      --radius: 14px;               /* درجة تدوير الزوايا */
+      --max-width: 1100px;          /* أقصى عرض للمحتوى */
+    }
+
+    /* ===============================
+       إعداد ألوان الوضع المظلم (Dark Mode)
+    =============================== */
+    :root.dark {
+      --bg: #0f1724;
+      --panel: #0b1220;
+      --muted: #9aa4b2;
+      --glass: rgba(255,255,255,0.03);
+      color: #e2e8f0; /* اللون الأساسي للنص في الوضع المظلم */
+    }
+
+    /* ===============================
+       تلوين النصوص بشكل عام
+    =============================== */
+    body {
+      color: #0f1724; /* اللون الأساسي للنص في الوضع الفاتح */
+    }
+
+    :root.dark body {
+      color: #e2e8f0; /* اللون الأساسي للنص في الوضع المظلم */
+    }
+
+    /* النصوص داخل البطاقات */
+    .section-card {
+      color: inherit; /* يرث اللون من العنصر الأب */
+    }
+
+    /* ===============================
+       تحسين مظهر الجداول في الوضع المظلم
+    =============================== */
+    :root.dark .comparison-table {
+      color: #e2e8f0;
+      background-color: var(--panel);
+    }
+
+    :root.dark .comparison-table th {
+      background-color: #1e293b;
+      color: #f8fafc;
+      border-color: #334155;
+    }
+
+    :root.dark .comparison-table td {
+      background-color: var(--panel);
+      color: #e2e8f0;
+      border-color: #334155;
+    }
+
+    :root.dark .comparison-table thead th {
+      border-bottom-color: #334155;
+    }
+
+    /* ===============================
+       تحسين ألوان النصوص في عناصر أخرى للوضع المظلم
+    =============================== */
+    :root.dark .accordion-button {
+      background-color: #1e293b;
+      color: #e2e8f0;
+    }
+
+    :root.dark .accordion-body {
+      background-color: #1e293b;
+      color: #cbd5e1;
+    }
+
+    /* الروابط */
+    :root.dark a {
+      color: #60a5fa;
+    }
+
+    :root.dark .toc-card a {
+      color: #cbd5e1;
+    }
+
+    :root.dark .toc-card a.active, 
+    :root.dark .toc-card a:hover {
+      color: #60a5fa;
+    }
+
+    /* التذييل */
+    :root.dark footer {
+      color: #94a3b8;
+    }
+
+    /* ===============================
+       إعدادات عامة للجسم والتخطيط
+    =============================== */
+    html,body{height:100%;}
+    body{
+      margin:0; padding:0; min-height:100%;
+      font-family: 'Cairo', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(var(--accent-1)/0.08) 0%, transparent 8%), var(--bg);
+      color: #0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.65;
+      display:flex; justify-content:center; padding:28px 16px;
+    }
+
+    .wrapper{width:100%; max-width:var(--max-width);}
+
+    /* ===============================
+       قسم الـ HERO / الغلاف العلوي
+    =============================== */
+    .hero{
+      background: linear-gradient(135deg, rgba(var(--accent-1)/1) 0%, rgba(46,134,193,0.9) 50%, rgba(var(--accent-2)/1) 100%);
+      color: white;
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: 0 10px 30px rgba(15,23,36,0.08);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .hero-grid{display:grid; grid-template-columns: 1fr 420px; gap:20px; align-items:center;}
+    .hero h1{font-size:1.9rem; margin:0 0 8px 0; font-weight:700; letter-spacing: -0.4px}
+    .hero p.lead{opacity:0.92; margin:0 0 12px 0}
+    .hero .meta{font-size:0.9rem; opacity:0.92}
+    .hero .badge{background:rgba(255,255,255,0.12); color:#fff; border-radius:999px; padding:6px 10px; font-weight:600}
+
+    .hero-graphic{display:flex; align-items:center; justify-content:center}
+    .cover-img{width:420px; max-width:100%; height:auto; border-radius:10px; box-shadow:0 12px 30px rgba(2,6,23,0.25); border:1px solid rgba(255,255,255,0.06)}
+
+    /* ===============================
+       شريط الأدوات العلوي داخل الـ hero
+    =============================== */
+    .top-actions{display:flex; gap:8px; align-items:center; justify-content:flex-end}
+    .btn-ghost{background:transparent; border:1px solid rgba(255,255,255,0.12); color: #fff}
+
+    /* ===============================
+       هيكل الصفحة العام (المحتوى + الفهرس)
+    =============================== */
+    .content{display:grid; grid-template-columns: 280px 1fr; gap:20px; margin-top:18px}
+
+    /* ===============================
+       الشريط الجانبي / جدول المحتويات
+    =============================== */
+    .toc-card{
+      position:sticky;
+      top:26px;
+      align-self:start;
+      border-radius:12px;
+      background:var(--panel);
+      padding:14px;
+      box-shadow:0 6px 18px rgba(15,23,36,0.06)
+    }
+    .toc-card h3{margin:0 0 10px 0; color: rgba(var(--accent-1)/1);}
+    .toc-card a{display:block; padding:8px 10px; border-radius:8px; color:var(--muted); text-decoration:none}
+    .toc-card a.active, .toc-card a:hover{
+      background:linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+      color:rgb(var(--accent-1));
+      font-weight:600
+    }
+
+    /* ===============================
+       بطاقات الأقسام الرئيسية
+    =============================== */
+    .section-card{
+      background:var(--panel);
+      border-radius:12px;
+      padding:18px;
+      box-shadow:0 6px 18px rgba(2,6,23,0.04);
+      margin-bottom:16px;
+      transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s
+    }
+    .section-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 20px 40px rgba(2,6,23,0.08)
+    }
+    .section-card h2{color: rgb(var(--accent-1)); margin-top:0}
+    .caption{font-size:0.85rem; color:var(--muted); text-align:right}
+
+    .sys-img{width:100%; height:auto; border-radius:8px; display:block; margin:8px 0; box-shadow:0 6px 18px rgba(2,6,23,0.06)}
+
+    /* نصوص مساعدة صغيرة */
+    .muted{color:var(--muted)}
+    .q{color:rgb(var(--accent-2)); font-weight:700}
+
+    /* ===============================
+       تذييل الصفحة
+    =============================== */
+    footer {
+    margin-top: 40px;
+    text-align: center;
+    background: var(--panel);
+    padding: 14px 22px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    color: var(--muted);
+    font-size: 0.95rem;
+    width: 100%;
+    }
+
+    /* ===============================
+       استجابة التصميم للشاشات الصغيرة
+    =============================== */
+    @media (max-width: 992px){
+      .hero-grid{grid-template-columns:1fr 300px}
+      .content{grid-template-columns: 1fr;}
+      .toc-card{position:relative; top:auto}
+    }
+    @media (max-width:576px){
+      body{padding:18px}
+      .hero{padding:18px}
+      .hero h1{font-size:1.4rem}
+      .hero-grid{grid-template-columns:1fr}
+      .hero-graphic{order:-1}
+    }
+
+    /* ===============================
+       تأثيرات الظهور عند التمرير
+    =============================== */
+    .reveal{opacity:0; transform: translateY(10px); transition:opacity .6s ease, transform .6s ease}
+    .reveal.visible{opacity:1; transform:none}
+
+    /* ===============================
+       إعدادات الطباعة
+    =============================== */
+    @media print{
+      body{background:white; color:black}
+      .hero{box-shadow:none; border-radius:0}
+      nav, .toc-card, .top-actions { display:none }
+      .section-card{box-shadow:none}
+    }
+
+    /* ===============================
+       أقسام الفهرس القابلة للطي (Collapsible TOC)
+    =============================== */
+    .toc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.05), rgba(var(--accent-2)/0.02));
+      transition: background 0.3s ease;
+    }
+    
+    .toc-header:hover {
+      background: linear-gradient(90deg, rgba(var(--accent-1)/0.08), rgba(var(--accent-2)/0.04));
+    }
+    
+    .toc-header h3 {
+      margin: 0;
+      font-size: 1.1rem;
+    }
+    
+    .toc-toggle {
+      background: none;
+      border: none;
+      color: rgba(var(--accent-1)/1);
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      padding: 4px;
+      border-radius: 4px;
+    }
+    
+    .toc-toggle:hover {
+      background: rgba(var(--accent-1)/0.1);
+    }
+    
+    .toc-toggle.collapsed {
+      transform: rotate(180deg);
+    }
+    
+    .toc-content {
+      transition: max-height 0.3s ease, opacity 0.3s ease;
+      overflow: hidden;
+      max-height: 500px;
+      opacity: 1;
+    }
+    
+    .toc-content.collapsed {
+      max-height: 0;
+      opacity: 0;
+    }
+    
+    .toc-section {
+      margin-bottom: 16px;
+    }
+    
+    .toc-section:last-child {
+      margin-bottom: 0;
+    }
+    
+    /* ===============================
+       زر الطفو للصعود إلى أعلى الصفحة - محدث
+    =============================== */	
+    .floating-button {
+      /* التموضع والتخطيط */
+      position: fixed;               /* تثبيت الزر في مكانه أثناء التمرير */
+      bottom: 20px;                  /* المسافة من الأسفل */
+      left: 20px;                    /* المسافة من اليسار */
+      width: 50px;                   /* عرض الزر */
+      height: 50px;                  /* ارتفاع الزر */
+    
+      /* المظهر والتصميم */
+      background-color: #210f80;     /* لون الخلفية الأزرق الداكن */
+      border-radius: 50%;            /* جعل الزر دائرياً */
+      display: none;                 /* إخفاء الزر في البداية */
+      align-items: center;           /* محاذاة المحتوى عمودياً في المنتصف */
+      justify-content: center;       /* محاذاة المحتوى أفقياً في المنتصف */
+      cursor: pointer;               /* تغيير شكل المؤشر إلى يد عند التمرير */
+    
+      /* التأثيرات البصرية */
+      opacity: 0.8;                  /* شفافية خفيفة */
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.5); /* ظل خفيف حول الزر */
+      transition: all 0.3s ease;     /* تأثيرات انتقالية سلسة */
+      z-index: 1000;                 /* التأكد من ظهور الزر فوق كل العناصر */
+    }
+
+    /* تأثيرات عند تمرير الماوس فوق الزر */
+    .floating-button:hover {
+      background-color: #fbd034;     /* تغيير اللون إلى الأصفر عند التمرير */
+      transform: scale(1.1);         /* تكبير الزر قليلاً عند التمرير */
+      opacity: 1;                    /* إزالة الشفافية عند التمرير */
+    }
+
+    /* تصميم السهم داخل الزر */
+    .arrow-up {
+      /* إنشاء شكل السهم باستخدام حدود CSS */
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;     /* الحد الأيسر شفاف */
+      border-right: 12px solid transparent;    /* الحد الأيمن شفاف */
+      border-bottom: 25px solid white;         /* الحد السفلي يشكل رأس السهم */
+      
+      /* تموضع السهم في منتصف الزر */
+      position: absolute;
+      top: 50%;                    /* منتصف عمودياً */
+      left: 50%;                   /* منتصف أفقياً */
+      transform: translate(-50%, -50%); /* ضبط المركز بدقة */
+    }
+
+    /* ===============================
+       تحسينات للوضع المظلم
+    =============================== */
+    :root.dark .floating-button {
+      background-color: #3b82f6;    /* لون أزرق أكثر وضوحاً في الوضع المظلم */
+      box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.7);
+    }
+
+    :root.dark .floating-button:hover {
+      background-color: #fbbf24;    /* لون أصفر مختلف قليلاً في الوضع المظلم */
+    }
+/* ===============================
+   إصلاحات إضافية للهواتف الصغيرة جداً
+   =============================== */
+@media (max-width: 380px) {
+  .section-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .section-card h4 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+  }
+  
+  .section-card h2 {
+    font-size: 1.3rem;
+  }
+  
+  .comparison-table {
+    font-size: 0.75rem;
+  }
+  
+  .comparison-table table {
+    min-width: 380px;
+  }
+  
+  .comparison-table th,
+  .comparison-table td {
+    padding: 6px 8px;
+  }
+  
+  /* تحسين التباعد العام */
+  body {
+    padding: 12px;
+  }
+  
+  .hero {
+    padding: 15px;
+  }
+  
+  .hero h1 {
+    font-size: 1.3rem;
+  }
+  
+  .toc-card {
+    padding: 12px;
+  }
+  
+  .toc-card a {
+    padding: 6px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+/* ===============================
+   إصلاحات للهواتف المتوسطة
+   =============================== */
+@media (max-width: 576px) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .reveal.visible {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  /* تحسين عرض الجداول */
+  .comparison-table {
+    border-radius: 8px;
+    margin: 10px 0;
+  }
+  
+  .comparison-table th {
+    font-weight: 600;
+    background-color: rgba(var(--accent-1)/0.1);
+  }
+  
+
+
+/* ===============================
+   تحسينات إضافية للقراءة على الهواتف
+   =============================== */
+@media (max-width: 576px) {
+  /* تحسين تباعد الأسطر للنصوص */
+  body {
+    line-height: 1.6;
+  }
+  
+  /* تحسين عناوين الجداول */
+  .comparison-table thead th {
+    white-space: nowrap;
+    text-align: center;
+  }
+  
+  /* تأثيرات بصرية محسنة للهواتف */
+  .section-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(2,6,23,0.1);
+  }
+  
+  /* تحسين أزرار التمرير للجداول */
+  .comparison-table::-webkit-scrollbar {
+    height: 6px;
+  }
+  
+  .comparison-table::-webkit-scrollbar-thumb {
+    background: rgba(var(--accent-1)/0.3);
+    border-radius: 3px;
+  }
+}
+  </style>
 
 
 </head>
@@ -33,27 +507,41 @@
         <div>
           <div class="d-flex justify-content-between align-items-start mb-2">
             <div>
-              <span class="badge">مشروع تعليمي</span>
+              <span class="badge" data-ar="🏠 الرئيسية" data-en="🏠 Home">🏠 الرئيسية</span>
             </div>
             <div class="top-actions">
-              <button id="darkToggle" class="btn btn-sm btn-ghost" title="تبديل الوضع الليلي"><i class="bi bi-moon"></i></button>
-              <a href="#summary" class="btn btn-sm btn-light">طباعة / PDF</a>
+              <button id="darkToggle" class="btn btn-sm btn-ghost" title="تبديل الوضع الليلي" data-ar-title="تبديل الوضع الليلي" data-en-title="Toggle Dark Mode">
+                <i class="bi bi-moon"></i>
+              </button>
+              <button id="lang-toggle" class="btn btn-outline-light btn-sm" aria-pressed="false" data-ar="🌐 English" data-en="🌐 العربية">🌐 English</button>
+              <a href="#summary" class="btn btn-sm btn-light" data-ar="🖨 طباعة / PDF" data-en="🖨 Print / PDF">طباعة / PDF</a>
             </div>
           </div>
 
-          <h1>مشروع محطة كهرباء السويس البخارية</h1>
-          <p class="lead">دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب.</p>
-          <div class="meta muted">إعداد وتصميم: <strong>الأسطورة</strong> · <span class="ms-2">مستوى: تعليمي/جامعي</span></div>
+          <h1 data-ar="مشروع محطة كهرباء السويس البخارية" data-en="Suez Steam Power Plant Project">مشروع محطة كهرباء السويس البخارية</h1>
+          <p class="lead" data-ar="دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب." 
+             data-en="A simplified and visually designed study to explain the plant's basic systems: boiler, turbine, condenser, water treatment, fuel and more — student-oriented presentation.">
+            دراسة مُبسطة ومصمَّمة بصريًا لشرح أنظمة المحطة الأساسية: الغلاية، التوربين، المكثف، معالجة المياه، الوقود والمزيد — عرض موجه للطلاب.
+          </p>
+          <div class="meta muted">
+            <span data-ar="إعداد وتصميم:" data-en="Prepared and designed by:"style="color: #000;">إعداد وتصميم:</span> 
+            <strong data-ar="الأسطورة" data-en="Alostoura"style="color: #000;">الأسطورة</strong> · 
+            <span class="ms-2" data-ar="مستوى: تعليمي/جامعي" data-en="Level: Educational/University"style="color: #000;">مستوى: تعليمي/جامعي</span>
+          </div>
 
           <div class="mt-3 d-flex gap-2">
-            <a class="btn btn-outline-light btn-sm" href="#intro">ابدأ القراءة</a>
-            <a class="btn btn-light btn-sm" href="#faq">الأسئلة الشائعة</a>
+            <a class="btn btn-outline-light btn-sm" href="#intro" data-ar="📖 ابدأ القراءة" data-en="📖 Start Reading">📖 ابدأ القراءة</a>
+            <a class="btn btn-light btn-sm" href="#faq" data-ar="💡الأسئلة الشائعة" data-en="💡FAQ">الأسئلة الشائعة</a>
           </div>
         </div>
 
         <div class="hero-graphic text-center">
           <!-- Decorative SVG + image -->
-          <img src="assets/محطة-كهرباء-السويس-البخارية.jpg" alt="‏‏محطة كهرباء السويس البخارية" class="cover-img"/>
+          <img src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/محطة-كهرباء-السويس-البخارية.jpg" 
+               alt="‏‏محطة كهرباء السويس البخارية" 
+               data-ar-alt="محطة كهرباء السويس البخارية" 
+               data-en-alt="Suez Steam Power Plant" 
+               class="cover-img"/>
         </div>
       </div>
     </header>
@@ -64,275 +552,370 @@
         <!-- Sections (الأقسام) -->
         <div class="toc-section">
           <div class="toc-header" id="sectionsToggle">
-            <h3>الأقسام</h3>
+            <h3 data-ar="الأقسام" data-en="Sections">الأقسام</h3>
             <button class="toc-toggle" id="sectionsIcon">
               <i class="bi bi-chevron-up"></i>
             </button>
           </div>
           <nav id="sections" class="toc-content collapsed">
-            <a href="sections/feeders.html">🏭 🔥 قسم الغلاية</a>
-            <a href="sections/turbines.html">🏭⚙️ قسم التوربينات</a>
-            <a href="sections/gis.html">🏭⚡نظام GIS</a>
-			<a href="sections/summary.html">🏭🧩مصطلحات عامة</a>
-            <a href="sections/about.html">🏭💡عن المشروع</a>
+            <a href="sections/feeders.html" data-ar="🔥 قسم الغلاية" data-en="🔥 Boiler Section">🔥 قسم الغلاية</a>
+            <a href="sections/turbines.html" data-ar="⚙️ قسم التوربينات" data-en="⚙️ Turbine Section">⚙️ قسم التوربينات</a>
+            <a href="sections/gis.html" data-ar="⚡ نظام GIS" data-en="⚡ GIS System">⚡ نظام GIS</a>
+            <a href="sections/summary.html" data-ar="📘 مصطلحات عامة" data-en="📘 Glossary">📘 مصطلحات عامة</a>
+            <a href="sections/about.html" data-ar="💡 عن المشروع" data-en="💡 About Project">💡 عن المشروع</a>
           </nav>
         </div>
         
         <!-- Table of Contents (فهرس المحتوى) -->
         <div class="toc-section">
           <div class="toc-header" id="tocToggle">
-            <h3>فهرس المحتوى</h3>
+            <h3 data-ar="فهرس المحتوى" data-en="Table of Contents">فهرس المحتوى</h3>
             <button class="toc-toggle" id="tocIcon">
               <i class="bi bi-chevron-up"></i>
             </button>
           </div>
           <nav id="toc" class="toc-content collapsed">
-            <a href="#intro">مقدمة</a>
-            <a href="#boiler">الفصل الأول: نظام الغلاية</a>
-            <a href="#turbine">الفصل الثاني: التوربين والمولد</a>
-            <a href="#condenser">الفصل الثالث: المكثف ونظام التبريد</a>
-            <a href="#water">الفصل الرابع: نظام المياه ومعالجتها</a>
-            <a href="#fuel">الفصل الخامس: نظام الوقود وغرفة الاحتراق</a>
-            <a href="#location">الفصل السادس: عوامل تحديد الموقع</a>
-            <a href="#proscons">الفصل السابع: مزايا وعيوب</a>
-            <a href="#efficiency">الفصل الثامن: الكفاءة</a>
-            <a href="#faq">الفصل التاسع: الأسئلة الشائعة</a>
-            <a href="#summary">ملخص ونصائح</a>
+            <a href="#intro" data-ar="مقدمة" data-en="Introduction">مقدمة</a>
+            <a href="#boiler" data-ar="الفصل الأول: نظام الغلاية" data-en="Chapter 1: Boiler System">الفصل الأول: نظام الغلاية</a>
+            <a href="#turbine" data-ar="الفصل الثاني: التوربين والمولد" data-en="Chapter 2: Turbine and Generator">الفصل الثاني: التوربين والمولد</a>
+            <a href="#condenser" data-ar="الفصل الثالث: المكثف ونظام التبريد" data-en="Chapter 3: Condenser and Cooling System">الفصل الثالث: المكثف ونظام التبريد</a>
+            <a href="#water" data-ar="الفصل الرابع: نظام المياه ومعالجتها" data-en="Chapter 4: Water System and Treatment">الفصل الرابع: نظام المياه ومعالجتها</a>
+            <a href="#fuel" data-ar="الفصل الخامس: نظام الوقود وغرفة الاحتراق" data-en="Chapter 5: Fuel System and Combustion Chamber">الفصل الخامس: نظام الوقود وغرفة الاحتراق</a>
+            <a href="#location" data-ar="الفصل السادس: عوامل تحديد الموقع" data-en="Chapter 6: Location Factors">الفصل السادس: عوامل تحديد الموقع</a>
+            <a href="#proscons" data-ar="الفصل السابع: مزايا وعيوب" data-en="Chapter 7: Advantages and Disadvantages">الفصل السابع: مزايا وعيوب</a>
+            <a href="#efficiency" data-ar="الفصل الثامن: الكفاءة" data-en="Chapter 8: Efficiency">الفصل الثامن: الكفاءة</a>
+            <a href="#faq" data-ar="الفصل التاسع: الأسئلة الشائعة" data-en="Chapter 9: FAQ">الفصل التاسع: الأسئلة الشائعة</a>
+            <a href="#summary" data-ar="ملخص ونصائح" data-en="Summary and Tips">ملخص ونصائح</a>
           </nav>
         </div>
       </aside>
 
       <!-- MAIN -->
-      <main>
+<main>
 
-        <section id="intro" class="section-card reveal">
-          <h2>مقدمة</h2>
-          <p>محطة كهرباء السويس البخارية هي محطة توليد طاقة تعمل بنظام الضغوط تحت الحرجة وتستخدم الغاز الطبيعي والمازوت كوقود احتياطي. الهدف من هذا المحتوى تقديم شرح مُبسّط ومُنظّم للأنظمة الأساسية داخل المحطة لسهولة المذاكرة والفهم.</p>
-        </section>
+    <section id="intro" class="section-card reveal">
+        <h2 data-ar="مقدمة" data-en="Introduction">مقدمة</h2>
+        <p data-ar="محطة كهرباء السويس البخارية هي محطة توليد طاقة تعمل بنظام الضغوط تحت الحرجة وتستخدم الغاز الطبيعي والمازوت كوقود احتياطي. الهدف من هذا المحتوى تقديم شرح مُبسّط ومُنظّم للأنظمة الأساسية داخل المحطة لسهولة المذاكرة والفهم." 
+           data-en="Suez Steam Power Plant is a power generation plant that operates with subcritical pressures and uses natural gas and mazut as backup fuel. The goal of this content is to provide a simplified and organized explanation of the basic systems within the plant for easy studying and understanding.">
+            محطة كهرباء السويس البخارية هي محطة توليد طاقة تعمل بنظام الضغوط تحت الحرجة وتستخدم الغاز الطبيعي والمازوت كوقود احتياطي. الهدف من هذا المحتوى تقديم شرح مُبسّط ومُنظّم للأنظمة الأساسية داخل المحطة لسهولة المذاكرة والفهم.
+        </p>
+    </section>
 
-        <section id="boiler" class="section-card reveal">
-          <h2>الفصل الأول: نظام الغلاية</h2>
-          <div class="row g-3 align-items-center">
+    <section id="boiler" class="section-card reveal">
+        <h2 data-ar="الفصل الأول: نظام الغلاية" data-en="Chapter 1: Boiler System">الفصل الأول: نظام الغلاية</h2>
+        <div class="row g-3 align-items-center">
             <div class="col-12 col-md-5">
-              <img class="sys-img" alt="مخطط غلاية" src="assets/الغلايات.webp">
-              <div class="caption">مخطط عام لانتاج الكهرباء</div>
-			  <img class="sys-img" alt="مخطط مولد" src="assets/مولد.webp">
-              <div class="caption">مخطط الغلاية البخارية مع أجزاء للدمى</div>
+                <img class="sys-img" alt="مخطط غلاية" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/الغلايات.webp">
+                <div class="caption" data-ar="مخطط عام لانتاج الكهرباء" data-en="General electricity production diagram">مخطط عام لانتاج الكهرباء</div>
+                <img class="sys-img" alt="مخطط مولد" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/مولد.webp">
+                <div class="caption" data-ar="مخطط الغلاية البخارية مع أجزاء للدمى" data-en="Steam boiler diagram with dummy parts">مخطط الغلاية البخارية مع أجزاء للدمى</div>
             </div>
             <div class="col-12 col-md-7">
-              <p>الغلاية هي قلب المحطة، ووظيفتها تحويل ماء التغذية إلى بخار عالي الضغط ودرجة الحرارة عن طريق حرق الوقود في غرفة الاحتراق. يتكون النظام من ممرات المياه، مشعّات حرارية، مجرى العادم، ونظام إمداد الوقود والاشتعال. في محطة السويس: ضغط البخار الرئيسي نحو <strong>166.5 بار</strong>، ودرجة حرارة التشغيل قد تصل إلى حوالي <strong>540°م</strong>.</p>
+                <p data-ar="الغلاية هي قلب المحطة، ووظيفتها تحويل ماء التغذية إلى بخار عالي الضغط ودرجة الحرارة عن طريق حرق الوقود في غرفة الاحتراق. يتكون النظام من ممرات المياه، مشعّات حرارية، مجرى العادم، ونظام إمداد الوقود والاشتعال. في محطة السويس: ضغط البخار الرئيسي نحو <strong>166.5 بار</strong>، ودرجة حرارة التشغيل قد تصل إلى حوالي <strong>540°م</strong>." 
+                   data-en="The boiler is the heart of the plant, and its function is to convert feedwater into high-pressure and high-temperature steam by burning fuel in the combustion chamber. The system consists of water passages, heat radiators, exhaust duct, and fuel supply and ignition system. In Suez plant: main steam pressure is about <strong>166.5 bar</strong>, and operating temperature can reach about <strong>540°C</strong>.">
+                    الغلاية هي قلب المحطة، ووظيفتها تحويل ماء التغذية إلى بخار عالي الضغط ودرجة الحرارة عن طريق حرق الوقود في غرفة الاحتراق. يتكون النظام من ممرات المياه، مشعّات حرارية، مجرى العادم، ونظام إمداد الوقود والاشتعال. في محطة السويس: ضغط البخار الرئيسي نحو <strong>166.5 بار</strong>، ودرجة حرارة التشغيل قد تصل إلى حوالي <strong>540°م</strong>.
+                </p>
 
-              <h5>كيف تساهم الغلاية في كفاءة المحطة؟</h5>
-              <ul>
-                <li><strong>كفاءة نقل الحرارة:</strong> تصميم المسطحات والتوريدات الحرارية يزيد من نقل الحرارة للاستخدام الفعّال.</li>
-                <li><strong>التحكم في توليد البخار:</strong> تحكّم دقيق في الضغط والحرارة يوفر بخارًا ثابتًا للتوربين.</li>
-                <li><strong>جودة البخار:</strong> إزالة الشوائب ومعالجة المياه تمنع التآكل وترسب الرواسب.</li>
-                <li><strong>مرونة الوقود:</strong> بعض الغلايات تدعم أنواع وقود متعددة (غاز، مازوت، كتلة حيوية).</li>
-                <li><strong>التوليد المشترك:</strong> إمكانية استغلال الحرارة المفقودة لإمداد حرارة صناعية أو تدفئة (CHP).</li>
-              </ul>
+                <h5 data-ar="كيف تساهم الغلاية في كفاءة المحطة؟" data-en="How does the boiler contribute to plant efficiency?">كيف تساهم الغلاية في كفاءة المحطة؟</h5>
+                <ul>
+                    <li data-ar="<strong>كفاءة نقل الحرارة:</strong> تصميم المسطحات والتوريدات الحرارية يزيد من نقل الحرارة للاستخدام الفعّال." 
+                        data-en="<strong>Heat transfer efficiency:</strong> The design of surfaces and heat supplies increases heat transfer for effective use.">
+                        <strong>كفاءة نقل الحرارة:</strong> تصميم المسطحات والتوريدات الحرارية يزيد من نقل الحرارة للاستخدام الفعّال.
+                    </li>
+                    <li data-ar="<strong>التحكم في توليد البخار:</strong> تحكّم دقيق في الضغط والحرارة يوفر بخارًا ثابتًا للتوربين." 
+                        data-en="<strong>Steam generation control:</strong> Precise control of pressure and temperature provides consistent steam to the turbine.">
+                        <strong>التحكم في توليد البخار:</strong> تحكّم دقيق في الضغط والحرارة يوفر بخارًا ثابتًا للتوربين.
+                    </li>
+                    <li data-ar="<strong>جودة البخار:</strong> إزالة الشوائب ومعالجة المياه تمنع التآكل وترسب الرواسب." 
+                        data-en="<strong>Steam quality:</strong> Removing impurities and water treatment prevents corrosion and scale deposits.">
+                        <strong>جودة البخار:</strong> إزالة الشوائب ومعالجة المياه تمنع التآكل وترسب الرواسب.
+                    </li>
+                    <li data-ar="<strong>مرونة الوقود:</strong> بعض الغلايات تدعم أنواع وقود متعددة (غاز، مازوت، كتلة حيوية)." 
+                        data-en="<strong>Fuel flexibility:</strong> Some boilers support multiple fuel types (gas, mazut, biomass).">
+                        <strong>مرونة الوقود:</strong> بعض الغلايات تدعم أنواع وقود متعددة (غاز، مازوت، كتلة حيوية).
+                    </li>
+                    <li data-ar="<strong>التوليد المشترك:</strong> إمكانية استغلال الحرارة المفقودة لإمداد حرارة صناعية أو تدفئة (CHP)." 
+                        data-en="<strong>Co-generation:</strong> Possibility to utilize waste heat for industrial heating or heating (CHP).">
+                        <strong>التوليد المشترك:</strong> إمكانية استغلال الحرارة المفقودة لإمداد حرارة صناعية أو تدفئة (CHP).
+                    </li>
+                </ul>
 
-              <hr>
-              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
-              <ol>
-                <li>ما وظيفة الغلاية؟</li>
-                <li>لماذا نحتاج لبخار عالي الضغط؟</li>
-                <li>ما الوقود المستخدم عادة في المحطات الحديثة؟</li>
-              </ol>
+                <hr>
+                <div><strong class="q" data-ar="أسئلة مراجعة قصيرة:" data-en="Short review questions:">أسئلة مراجعة قصيرة:</strong></div>
+                <ol>
+                    <li data-ar="ما وظيفة الغلاية؟" data-en="What is the function of the boiler?">ما وظيفة الغلاية؟</li>
+                    <li data-ar="لماذا نحتاج لبخار عالي الضغط؟" data-en="Why do we need high-pressure steam?">لماذا نحتاج لبخار عالي الضغط؟</li>
+                    <li data-ar="ما الوقود المستخدم عادة في المحطات الحديثة؟" data-en="What fuel is commonly used in modern plants?">ما الوقود المستخدم عادة في المحطات الحديثة؟</li>
+                </ol>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="turbine" class="section-card reveal">
-          <h2>الفصل الثاني: التوربين والمولد</h2>
-          <div class="row g-3 align-items-center">
+    <section id="turbine" class="section-card reveal">
+        <h2 data-ar="الفصل الثاني: التوربين والمولد" data-en="Chapter 2: Turbine and Generator">الفصل الثاني: التوربين والمولد</h2>
+        <div class="row g-3 align-items-center">
             <div class="col-12 col-md-5 order-md-2">
-              <img class="sys-img" alt="مخطط توربين" src="assets/التوربين.jpg">
-			  <div class="caption">مخطط طولى لتوربين بخاري</div>
-			  
+                <img class="sys-img" alt="مخطط توربين" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/التوربين.jpg">
+                <div class="caption" data-ar="مخطط طولى لتوربين بخاري" data-en="Longitudinal diagram of a steam turbine">مخطط طولى لتوربين بخاري</div>
             </div>
             <div class="col-12 col-md-7 order-md-1">
-              <p>يدخل البخار المشدود إلى التوربين، حيث يتمدد عبر شفرات متعددة المراحل (HP, IP, LP)، مسببًا دوران الدوار. الدوار متصل بالمولد الذي يحول الطاقة الميكانيكية إلى طاقة كهربائية.</p>
-              <p>التوربينات الحديثة عادةً تستخدم إعادة تسخين (reheat) وتقسيم المراحل لرفع الكفاءة وتقليل التآكل.</p>
+                <p data-ar="يدخل البخار المشدود إلى التوربين، حيث يتمدد عبر شفرات متعددة المراحل (HP, IP, LP)، مسببًا دوران الدوار. الدوار متصل بالمولد الذي يحول الطاقة الميكانيكية إلى طاقة كهربائية." 
+                   data-en="Superheated steam enters the turbine, where it expands through multiple stage blades (HP, IP, LP), causing the rotor to rotate. The rotor is connected to the generator which converts mechanical energy into electrical energy.">
+                    يدخل البخار المشدود إلى التوربين، حيث يتمدد عبر شفرات متعددة المراحل (HP, IP, LP)، مسببًا دوران الدوار. الدوار متصل بالمولد الذي يحول الطاقة الميكانيكية إلى طاقة كهربائية.
+                </p>
+                <p data-ar="التوربينات الحديثة عادةً تستخدم إعادة تسخين (reheat) وتقسيم المراحل لرفع الكفاءة وتقليل التآكل." 
+                   data-en="Modern turbines typically use reheat and stage division to increase efficiency and reduce wear.">
+                    التوربينات الحديثة عادةً تستخدم إعادة تسخين (reheat) وتقسيم المراحل لرفع الكفاءة وتقليل التآكل.
+                </p>
 
-              <hr>
-              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
-              <ol>
-                <li>كيف يعمل التوربين؟</li>
-                <li>ما علاقة التوربين بالمولد؟</li>
-                <li>ما فائدة المراحل المتعددة وإعادة التسخين؟</li>
-              </ol>
+                <hr>
+                <div><strong class="q" data-ar="أسئلة مراجعة قصيرة:" data-en="Short review questions:">أسئلة مراجعة قصيرة:</strong></div>
+                <ol>
+                    <li data-ar="كيف يعمل التوربين؟" data-en="How does the turbine work?">كيف يعمل التوربين؟</li>
+                    <li data-ar="ما علاقة التوربين بالمولد؟" data-en="What is the relationship between the turbine and generator?">ما علاقة التوربين بالمولد؟</li>
+                    <li data-ar="ما فائدة المراحل المتعددة وإعادة التسخين؟" data-en="What is the benefit of multiple stages and reheat?">ما فائدة المراحل المتعددة وإعادة التسخين؟</li>
+                </ol>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="condenser" class="section-card reveal">
-          <h2>الفصل الثالث: المكثف ونظام التبريد</h2>
-          <div class="row g-3 align-items-center">
+    <section id="condenser" class="section-card reveal">
+        <h2 data-ar="الفصل الثالث: المكثف ونظام التبريد" data-en="Chapter 3: Condenser and Cooling System">الفصل الثالث: المكثف ونظام التبريد</h2>
+        <div class="row g-3 align-items-center">
             <div class="col-12 col-md-5">
-              <img class="sys-img" alt="مكثف" src="assets/المكثف.jpg">
-              <div class="caption">مكثف — مثال توضيحي</div>
+                <img class="sys-img" alt="مكثف" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/المكثف.jpg">
+                <div class="caption" data-ar="مكثف — مثال توضيحي" data-en="Condenser - illustrative example">مكثف — مثال توضيحي</div>
             </div>
             <div class="col-12 col-md-7">
-              <p>المكثف يحول بخار العادم من التوربين إلى ماء تكاثفي باستخدام مياه تبريد (غالبًا مياه بحرية في محطات ساحلية). ذلك يخفض ضغط مخرج التوربين ويزيد الفرق في الضغط عبر التوربين مما يحسّن الكفاءة.</p>
-              <p>يجب الحفاظ على نظافة أنابيب المكثف ومنع دخول الغازات غير المكثفة لأن ذلك يرفع الضغط ويقلل الكفاءة.</p>
+                <p data-ar="المكثف يحول بخار العادم من التوربين إلى ماء تكاثفي باستخدام مياه تبريد (غالبًا مياه بحرية في محطات ساحلية). ذلك يخفض ضغط مخرج التوربين ويزيد الفرق في الضغط عبر التوربين مما يحسّن الكفاءة." 
+                   data-en="The condenser converts exhaust steam from the turbine into condensate water using cooling water (often seawater in coastal plants). This lowers the turbine outlet pressure and increases the pressure difference across the turbine, improving efficiency.">
+                    المكثف يحول بخار العادم من التوربين إلى ماء تكاثفي باستخدام مياه تبريد (غالبًا مياه بحرية في محطات ساحلية). ذلك يخفض ضغط مخرج التوربين ويزيد الفرق في الضغط عبر التوربين مما يحسّن الكفاءة.
+                </p>
+                <p data-ar="يجب الحفاظ على نظافة أنابيب المكثف ومنع دخول الغازات غير المكثفة لأن ذلك يرفع الضغط ويقلل الكفاءة." 
+                   data-en="Condenser tubes must be kept clean and non-condensable gases prevented from entering because this raises pressure and reduces efficiency.">
+                    يجب الحفاظ على نظافة أنابيب المكثف ومنع دخول الغازات غير المكثفة لأن ذلك يرفع الضغط ويقلل الكفاءة.
+                </p>
 
-              <hr>
-              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
-              <ol>
-                <li>لماذا نستخدم المكثف؟</li>
-                <li>ما دور مياه البحر؟</li>
-                <li>ما مخاطر تلوث أنابيب المكثف؟</li>
-              </ol>
+                <hr>
+                <div><strong class="q" data-ar="أسئلة مراجعة قصيرة:" data-en="Short review questions:">أسئلة مراجعة قصيرة:</strong></div>
+                <ol>
+                    <li data-ar="لماذا نستخدم المكثف؟" data-en="Why do we use a condenser?">لماذا نستخدم المكثف؟</li>
+                    <li data-ar="ما دور مياه البحر؟" data-en="What is the role of seawater?">ما دور مياه البحر؟</li>
+                    <li data-ar="ما مخاطر تلوث أنابيب المكثف؟" data-en="What are the risks of condenser tube contamination?">ما مخاطر تلوث أنابيب المكثف؟</li>
+                </ol>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="water" class="section-card reveal">
-          <h2>الفصل الرابع: نظام المياه ومعالجتها</h2>
-          <div class="row g-3 align-items-center">
+    <section id="water" class="section-card reveal">
+        <h2 data-ar="الفصل الرابع: نظام المياه ومعالجتها" data-en="Chapter 4: Water System and Treatment">الفصل الرابع: نظام المياه ومعالجتها</h2>
+        <div class="row g-3 align-items-center">
             <div class="col-12 col-md-5 order-md-2">
-              <img class="sys-img" alt="معالجة مياه" src="assets/معالجة-المياة.png">
-              <div class="caption">مخطط أنظمة معالجة مياه التغذية </div>
+                <img class="sys-img" alt="معالجة مياه" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/معالجة-المياة.png">
+                <div class="caption" data-ar="مخطط أنظمة معالجة مياه التغذية" data-en="Feedwater treatment systems diagram">مخطط أنظمة معالجة مياه التغذية</div>
             </div>
             <div class="col-12 col-md-7 order-md-1">
-              <p>نظام المياه يشمل مياه التغذية، معالجة مياه التوربين، مخارج التكثيف، ومخازن الطوارئ. المعالجة تزيل الأملاح والغازات الذائبة لمنع التآكل والترسبات (scale).</p>
-              <p>التقنيات الشائعة: deaerator لإزالة الغازات، أنظمة تبادل أيوني (demineralization)، مرشحات وإجراءات معالجة كيماوية.</p>
+                <p data-ar="نظام المياه يشمل مياه التغذية، معالجة مياه التوربين، مخارج التكثيف، ومخازن الطوارئ. المعالجة تزيل الأملاح والغازات الذائبة لمنع التآكل والترسبات (scale)." 
+                   data-en="The water system includes feedwater, turbine water treatment, condensation outlets, and emergency storage. Treatment removes dissolved salts and gases to prevent corrosion and scale deposits.">
+                    نظام المياه يشمل مياه التغذية، معالجة مياه التوربين، مخارج التكثيف، ومخازن الطوارئ. المعالجة تزيل الأملاح والغازات الذائبة لمنع التآكل والترسبات (scale).
+                </p>
+                <p data-ar="التقنيات الشائعة: deaerator لإزالة الغازات، أنظمة تبادل أيوني (demineralization)، مرشحات وإجراءات معالجة كيماوية." 
+                   data-en="Common techniques: deaerator for gas removal, ion exchange systems (demineralization), filters and chemical treatment procedures.">
+                    التقنيات الشائعة: deaerator لإزالة الغازات، أنظمة تبادل أيوني (demineralization)، مرشحات وإجراءات معالجة كيماوية.
+                </p>
 
-              <hr>
-              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
-              <ol>
-                <li>لماذا نعالج مياه التغذية؟</li>
-                <li>ما مخاطر وجود أملاح في الغلاية؟</li>
-                <li>كيف يحسن التسخين المسبق كفاءة المحطة؟</li>
-              </ol>
+                <hr>
+                <div><strong class="q" data-ar="أسئلة مراجعة قصيرة:" data-en="Short review questions:">أسئلة مراجعة قصيرة:</strong></div>
+                <ol>
+                    <li data-ar="لماذا نعالج مياه التغذية؟" data-en="Why do we treat feedwater?">لماذا نعالج مياه التغذية؟</li>
+                    <li data-ar="ما مخاطر وجود أملاح في الغلاية؟" data-en="What are the risks of salts in the boiler?">ما مخاطر وجود أملاح في الغلاية؟</li>
+                    <li data-ar="كيف يحسن التسخين المسبق كفاءة المحطة؟" data-en="How does preheating improve plant efficiency?">كيف يحسن التسخين المسبق كفاءة المحطة؟</li>
+                </ol>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="fuel" class="section-card reveal">
-          <h2>الفصل الخامس: نظام الوقود وغرفة الاحتراق</h2>
-          <div class="row g-3 align-items-center">
+    <section id="fuel" class="section-card reveal">
+        <h2 data-ar="الفصل الخامس: نظام الوقود وغرفة الاحتراق" data-en="Chapter 5: Fuel System and Combustion Chamber">الفصل الخامس: نظام الوقود وغرفة الاحتراق</h2>
+        <div class="row g-3 align-items-center">
             <div class="col-12 col-md-5">
-              <img class="sys-img" alt="غرفة احتراق" src="assets/غرفة-احتراق.jpg">
-              <div class="caption">غرفة احتراق ومشعل — مثال توضيحي</div>
-			  <img class="sys-img" alt="مسار المياة" src="assets/مسار-المياة.jpg">
-              <div class="caption">مسار-المياة — مثال توضيحي</div>
+                <img class="sys-img" alt="غرفة احتراق" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/غرفة-احتراق.jpg">
+                <div class="caption" data-ar="غرفة احتراق ومشعل — مثال توضيحي" data-en="Combustion chamber and burner - illustrative example">غرفة احتراق ومشعل — مثال توضيحي</div>
+                <img class="sys-img" alt="مسار المياة" src="https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/مسار-المياة.jpg">
+                <div class="caption" data-ar="مسار-المياة — مثال توضيحي" data-en="Water path - illustrative example">مسار-المياة — مثال توضيحي</div>
             </div>
             <div class="col-12 col-md-7">
-              <p>خطوط إمداد الغاز الطبيعي (الوقود الأساسي) والمازوت (احتياطي) تصل إلى المشعل داخل غرفة الاحتراق. المازوت يحتاج تسخينًا قبل الضخ، وتوجد أنظمة أمان لمنع التسرب، صمامات فصل، وكواشف للهب والغازات.</p>
+                <p data-ar="خطوط إمداد الغاز الطبيعي (الوقود الأساسي) والمازوت (احتياطي) تصل إلى المشعل داخل غرفة الاحتراق. المازوت يحتاج تسخينًا قبل الضخ، وتوجد أنظمة أمان لمنع التسرب، صمامات فصل، وكواشف للهب والغازات." 
+                   data-en="Natural gas supply lines (primary fuel) and mazut (backup) reach the burner inside the combustion chamber. Mazut requires heating before pumping, and there are safety systems to prevent leaks, isolation valves, and flame and gas detectors.">
+                    خطوط إمداد الغاز الطبيعي (الوقود الأساسي) والمازوت (احتياطي) تصل إلى المشعل داخل غرفة الاحتراق. المازوت يحتاج تسخينًا قبل الضخ، وتوجد أنظمة أمان لمنع التسرب، صمامات فصل، وكواشف للهب والغازات.
+                </p>
 
-              <hr>
-              <div><strong class="q">أسئلة مراجعة قصيرة:</strong></div>
-              <ol>
-                <li>ما الفرق بين الغاز الطبيعي والمازوت من ناحية التشغيل؟</li>
-                <li>لماذا يحتاج المازوت لتسخين قبل الحقن؟</li>
-                <li>ما نظم السلامة الأساسية لخط الوقود؟</li>
-              </ol>
+                <hr>
+                <div><strong class="q" data-ar="أسئلة مراجعة قصيرة:" data-en="Short review questions:">أسئلة مراجعة قصيرة:</strong></div>
+                <ol>
+                    <li data-ar="ما الفرق بين الغاز الطبيعي والمازوت من ناحية التشغيل؟" data-en="What is the operational difference between natural gas and mazut?">ما الفرق بين الغاز الطبيعي والمازوت من ناحية التشغيل؟</li>
+                    <li data-ar="لماذا يحتاج المازوت لتسخين قبل الحقن؟" data-en="Why does mazut need heating before injection?">لماذا يحتاج المازوت لتسخين قبل الحقن؟</li>
+                    <li data-ar="ما نظم السلامة الأساسية لخط الوقود؟" data-en="What are the basic safety systems for the fuel line?">ما نظم السلامة الأساسية لخط الوقود؟</li>
+                </ol>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="location" class="section-card reveal">
-          <h2>الفصل السادس: عوامل تحديد موقع محطة الطاقة البخارية</h2>
-          <div class="factor-card p-3 mb-2" style="border-left:4px solid rgba(var(--accent-1)/1)">
-            <h5>توريد الوقود</h5>
-            <p class="muted">المحطة يجب أن تكون قريبة من مصادر الوقود لتقليل تكاليف النقل (مثلاً بالقرب من شبكات الغاز أو مرافق التخزين).</p>
-          </div>
-          <div class="factor-card p-3 mb-2" style="border-left:4px solid rgba(var(--accent-2)/1)">
-            <h5>توافر المياه</h5>
-            <p class="muted">وجود مصدر ثابت للمياه (نهر، قناة، أو بحر) ضروري لأن بعض الخسائر تتطلب تغذية مستمرة — تقريبًا 2٪ من البخار المنتَج قد يلزم كـ makeup water.</p>
-          </div>
-          <div class="factor-card p-3 mb-2">
-            <h5>مرافق النقل</h5>
-            <p class="muted">القدرة على توصيل معدات ثقيلة ووقود عبر سكك حديدية أو طرق رئيسية عامل مهم.</p>
-          </div>
-        </section>
+    <section id="location" class="section-card reveal">
+        <h2 data-ar="الفصل السادس: عوامل تحديد موقع محطة الطاقة البخارية" data-en="Chapter 6: Steam Power Plant Location Factors">الفصل السادس: عوامل تحديد موقع محطة الطاقة البخارية</h2>
+        <div class="factor-card p-3 mb-2" style="border-left:4px solid rgba(var(--accent-1)/1)">
+            <h5 data-ar="توريد الوقود" data-en="Fuel Supply">توريد الوقود</h5>
+            <p class="muted" data-ar="المحطة يجب أن تكون قريبة من مصادر الوقود لتقليل تكاليف النقل (مثلاً بالقرب من شبكات الغاز أو مرافق التخزين)." 
+               data-en="The plant should be close to fuel sources to reduce transportation costs (e.g., near gas networks or storage facilities).">
+                المحطة يجب أن تكون قريبة من مصادر الوقود لتقليل تكاليف النقل (مثلاً بالقرب من شبكات الغاز أو مرافق التخزين).
+            </p>
+        </div>
+        <div class="factor-card p-3 mb-2" style="border-left:4px solid rgba(var(--accent-2)/1)">
+            <h5 data-ar="توافر المياه" data-en="Water Availability">توافر المياه</h5>
+            <p class="muted" data-ar="وجود مصدر ثابت للمياه (نهر، قناة، أو بحر) ضروري لأن بعض الخسائر تتطلب تغذية مستمرة — تقريبًا 2٪ من البخار المنتَج قد يلزم كـ makeup water." 
+               data-en="A constant water source (river, canal, or sea) is essential because some losses require continuous feeding — approximately 2% of the steam produced may be needed as makeup water.">
+                وجود مصدر ثابت للمياه (نهر، قناة، أو بحر) ضروري لأن بعض الخسائر تتطلب تغذية مستمرة — تقريبًا 2٪ من البخار المنتَج قد يلزم كـ makeup water.
+            </p>
+        </div>
+        <div class="factor-card p-3 mb-2">
+            <h5 data-ar="مرافق النقل" data-en="Transportation Facilities">مرافق النقل</h5>
+            <p class="muted" data-ar="القدرة على توصيل معدات ثقيلة ووقود عبر سكك حديدية أو طرق رئيسية عامل مهم." 
+               data-en="The ability to transport heavy equipment and fuel via railways or main roads is an important factor.">
+                القدرة على توصيل معدات ثقيلة ووقود عبر سكك حديدية أو طرق رئيسية عامل مهم.
+            </p>
+        </div>
+    </section>
 
-        <section id="proscons" class="section-card reveal">
-          <h2>الفصل السابع: مزايا وعيوب محطات الطاقة البخارية</h2>
-          <div class="table-responsive">
+    <section id="proscons" class="section-card reveal">
+        <h2 data-ar="الفصل السابع: مزايا وعيوب محطات الطاقة البخارية" data-en="Chapter 7: Advantages and Disadvantages of Steam Power Plants">الفصل السابع: مزايا وعيوب محطات الطاقة البخارية</h2>
+        <div class="table-responsive">
             <table class="table table-bordered comparison-table">
-              <thead>
-                <tr>
-                  <th class="text-center">المزايا</th>
-                  <th class="text-center">العيوب</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>تكلفة أولية منخفضة نسبياً.</td>
-                  <td>كفاءة متوسطة (تقريباً 29–41%).</td>
-                </tr>
-                <tr>
-                  <td>مرونة في اختيار الوقود.</td>
-                  <td>آثار بيئية (انبعاثات، تلوث مياه).</td>
-                </tr>
-                <tr>
-                  <td>مصدر طاقة موثوق للاستمرار على مدار الساعة.</td>
-                  <td>احتياج كبير للمياه.</td>
-                </tr>
-                <tr>
-                  <td>سهولة التركيب بالقرب من مصادر الوقود والمياه.</td>
-                  <td>تكاليف تشغيل وصيانة مرتفعة.</td>
-                </tr>
-              </tbody>
+                <thead>
+                    <tr>
+                        <th class="text-center" data-ar="المزايا" data-en="Advantages">المزايا</th>
+                        <th class="text-center" data-ar="العيوب" data-en="Disadvantages">العيوب</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td data-ar="تكلفة أولية منخفضة نسبياً." data-en="Relatively low initial cost.">تكلفة أولية منخفضة نسبياً.</td>
+                        <td data-ar="كفاءة متوسطة (تقريباً 29–41%)." data-en="Medium efficiency (approximately 29–41%).">كفاءة متوسطة (تقريباً 29–41%).</td>
+                    </tr>
+                    <tr>
+                        <td data-ar="مرونة في اختيار الوقود." data-en="Flexibility in fuel choice.">مرونة في اختيار الوقود.</td>
+                        <td data-ar="آثار بيئية (انبعاثات، تلوث مياه)." data-en="Environmental impacts (emissions, water pollution).">آثار بيئية (انبعاثات، تلوث مياه).</td>
+                    </tr>
+                    <tr>
+                        <td data-ar="مصدر طاقة موثوق للاستمرار على مدار الساعة." data-en="Reliable power source for 24/7 operation.">مصدر طاقة موثوق للاستمرار على مدار الساعة.</td>
+                        <td data-ar="احتياج كبير للمياه." data-en="High water requirement.">احتياج كبير للمياه.</td>
+                    </tr>
+                    <tr>
+                        <td data-ar="سهولة التركيب بالقرب من مصادر الوقود والمياه." data-en="Easy installation near fuel and water sources.">سهولة التركيب بالقرب من مصادر الوقود والمياه.</td>
+                        <td data-ar="تكاليف تشغيل وصيانة مرتفعة." data-en="High operating and maintenance costs.">تكاليف تشغيل وصيانة مرتفعة.</td>
+                    </tr>
+                </tbody>
             </table>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="efficiency" class="section-card reveal">
-          <h2>الفصل الثامن: كفاءة محطات الطاقة البخارية</h2>
-          <p>الكفاءة الإجمالية لمحطة بخارية تكون متوسطة نسبيًا — سببان رئيسيان:</p>
-          <ol>
-            <li>فقد حرارة كبير في المكثف.</li>
-            <li>فقد حراري خلال مراحل النقل والعتاد والسطوح.</li>
-          </ol>
-          <p>تحسين الكفاءة يتم عبر: زيادة ضغط ودرجة بخار الدخول (حتى حدود المواد)، إعادة التسخين، المسخنات المسبقة لمياه التغذية، وعزل حراري جيد.</p>
-        </section>
+    <section id="efficiency" class="section-card reveal">
+        <h2 data-ar="الفصل الثامن: كفاءة محطات الطاقة البخارية" data-en="Chapter 8: Steam Power Plant Efficiency">الفصل الثامن: كفاءة محطات الطاقة البخارية</h2>
+        <p data-ar="الكفاءة الإجمالية لمحطة بخارية تكون متوسطة نسبيًا — سببان رئيسيان:" 
+           data-en="The overall efficiency of a steam plant is relatively medium — two main reasons:">
+            الكفاءة الإجمالية لمحطة بخارية تكون متوسطة نسبيًا — سببان رئيسيان:
+        </p>
+        <ol>
+            <li data-ar="فقد حرارة كبير في المكثف." data-en="Significant heat loss in the condenser.">فقد حرارة كبير في المكثف.</li>
+            <li data-ar="فقد حراري خلال مراحل النقل والعتاد والسطوح." data-en="Thermal loss during transmission, gear, and surfaces stages.">فقد حراري خلال مراحل النقل والعتاد والسطوح.</li>
+        </ol>
+        <p data-ar="تحسين الكفاءة يتم عبر: زيادة ضغط ودرجة بخار الدخول (حتى حدود المواد)، إعادة التسخين، المسخنات المسبقة لمياه التغذية، وعزل حراري جيد." 
+           data-en="Efficiency improvement is achieved through: increasing inlet steam pressure and temperature (up to material limits), reheat, feedwater preheaters, and good thermal insulation.">
+            تحسين الكفاءة يتم عبر: زيادة ضغط ودرجة بخار الدخول (حتى حدود المواد)، إعادة التسخين، المسخنات المسبقة لمياه التغذية، وعزل حراري جيد.
+        </p>
+    </section>
 
-        <section id="faq" class="section-card reveal">
-          <h2>الفصل التاسع: الأسئلة الشائعة</h2>
-          <div class="accordion" id="faqAccordion">
+    <section id="faq" class="section-card reveal">
+        <h2 data-ar="الفصل التاسع: الأسئلة الشائعة" data-en="Chapter 9: Frequently Asked Questions">الفصل التاسع: الأسئلة الشائعة</h2>
+        <div class="accordion" id="faqAccordion">
             <div class="accordion-item">
-              <h3 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">ما هي محطة الطاقة البخارية؟</button>
-              </h3>
-              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">منشأة تحول الطاقة الحرارية إلى طاقة ميكانيكية ثم كهربائية عبر بخار الماء والتوربينات.</div>
-              </div>
+                <h3 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" 
+                            data-ar="ما هي محطة الطاقة البخارية؟" data-en="What is a steam power plant?">
+                        ما هي محطة الطاقة البخارية؟
+                    </button>
+                </h3>
+                <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body" 
+                         data-ar="منشأة تحول الطاقة الحرارية إلى طاقة ميكانيكية ثم كهربائية عبر بخار الماء والتوربينات." 
+                         data-en="A facility that converts thermal energy into mechanical energy and then electrical energy through steam and turbines.">
+                        منشأة تحول الطاقة الحرارية إلى طاقة ميكانيكية ثم كهربائية عبر بخار الماء والتوربينات.
+                    </div>
+                </div>
             </div>
             <div class="accordion-item">
-              <h3 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">كيف تعمل محطة الطاقة البخارية؟</button>
-              </h3>
-              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">الماء يسخن في الغلاية إلى بخار؛ البخار يدفع التوربين؛ التوربين يدير المولد؛ البخار يُكثّف ويُعاد للمرة القادمة.</div>
-              </div>
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" 
+                            data-ar="كيف تعمل محطة الطاقة البخارية؟" data-en="How does a steam power plant work?">
+                        كيف تعمل محطة الطاقة البخارية؟
+                    </button>
+                </h3>
+                <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body" 
+                         data-ar="الماء يسخن في الغلاية إلى بخار؛ البخار يدفع التوربين؛ التوربين يدير المولد؛ البخار يُكثّف ويُعاد للمرة القادمة." 
+                         data-en="Water is heated in the boiler to steam; steam drives the turbine; turbine rotates the generator; steam is condensed and returned for the next cycle.">
+                        الماء يسخن في الغلاية إلى بخار؛ البخار يدفع التوربين؛ التوربين يدير المولد؛ البخار يُكثّف ويُعاد للمرة القادمة.
+                    </div>
+                </div>
             </div>
             <div class="accordion-item">
-              <h3 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">ما أنواع محطات الطاقة البخارية؟</button>
-              </h3>
-              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body">تقليدية (فحم/غاز/مازوت)، نووية، حرارية أرضية، شمسية حرارية، ومحطات التوليد من حرارة مهدرة.</div>
-              </div>
+                <h3 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" 
+                            data-ar="ما أنواع محطات الطاقة البخارية؟" data-en="What are the types of steam power plants?">
+                        ما أنواع محطات الطاقة البخارية؟
+                    </button>
+                </h3>
+                <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body" 
+                         data-ar="تقليدية (فحم/غاز/مازوت)، نووية، حرارية أرضية، شمسية حرارية، ومحطات التوليد من حرارة مهدرة." 
+                         data-en="Conventional (coal/gas/mazut), nuclear, geothermal, solar thermal, and waste heat generation plants.">
+                        تقليدية (فحم/غاز/مازوت)، نووية، حرارية أرضية، شمسية حرارية، ومحطات التوليد من حرارة مهدرة.
+                    </div>
+                </div>
             </div>
-          </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="summary" class="section-card reveal">
-          <h2>ملخص المذاكرة ونصائح سريعة</h2>
-          <ul>
-            <li>الدورة الأساسية: <strong>الغلاية → التوربين → المكثف → المضخة → الغلاية</strong>.</li>
-            <li>زيادة حرارة وضغط البخار عند دخول التوربين تحسّن الكفاءة (مع اعتبار حدود المواد).</li>
-            <li>معالجة المياه ونظافة المكثف من أهم عوامل الاستمرارية.</li>
-            <li>راجع أسئلة كل فصل بصوت عالٍ لتثبيت المعلومات.</li>
-          </ul>
-			
-          </div> 
+    <section id="summary" class="section-card reveal">
+        <h2 data-ar="ملخص المذاكرة ونصائح سريعة" data-en="Study Summary and Quick Tips">ملخص المذاكرة ونصائح سريعة</h2>
+        <ul>
+            <li data-ar="الدورة الأساسية: <strong>الغلاية → التوربين → المكثف → المضخة → الغلاية</strong>." 
+                data-en="Basic cycle: <strong>Boiler → Turbine → Condenser → Pump → Boiler</strong>.">
+                الدورة الأساسية: <strong>الغلاية → التوربين → المكثف → المضخة → الغلاية</strong>.
+            </li>
+            <li data-ar="زيادة حرارة وضغط البخار عند دخول التوربين تحسّن الكفاءة (مع اعتبار حدود المواد)." 
+                data-en="Increasing steam temperature and pressure at turbine inlet improves efficiency (considering material limits).">
+                زيادة حرارة وضغط البخار عند دخول التوربين تحسّن الكفاءة (مع اعتبار حدود المواد).
+            </li>
+            <li data-ar="معالجة المياه ونظافة المكثف من أهم عوامل الاستمرارية." 
+                data-en="Water treatment and condenser cleanliness are among the most important factors for continuity.">
+                معالجة المياه ونظافة المكثف من أهم عوامل الاستمرارية.
+            </li>
+            <li data-ar="راجع أسئلة كل فصل بصوت عالٍ لتثبيت المعلومات." 
+                data-en="Review each chapter's questions aloud to reinforce information.">
+                راجع أسئلة كل فصل بصوت عالٍ لتثبيت المعلومات.
+            </li>
+        </ul>
+    </section>
+
+</div>
           <footer>
-            إعداد وتصميم: <strong style="color: #d32f2f;">الأسطورة</strong> · نسخة احترافية للتعليم · © "مشروع محطة السويس البخارية"
-          </footer>
+    <span data-ar="إعداد وتصميم:" data-en="Prepared and designed by:">إعداد وتصميم:</span> 
+    <strong style="color: #d32f2f;">
+        <span data-ar="الأسطورة" data-en="Alostoura">الأسطورة</span>
+    </strong> · 
+    <span data-ar="نسخة احترافية للتعليم" data-en="Professional educational version">نسخة احترافية للتعليم</span> · 
+    <span data-ar="© مشروع محطة السويس البخارية" data-en="© Suez Steam Power Plant Project">© "مشروع محطة السويس البخارية"</span>
+        </footer>
         </section>
 		
 		<br><br><br><br>
@@ -345,13 +928,328 @@
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
+  <script>
+    // ===============================
+    // تهيئة عامة للصفحة
+    // ===============================
+    document.addEventListener('DOMContentLoaded', function() {
+        // ===============================
+        // تبديل الوضع المظلم
+        // ===============================
+        const toggle = document.getElementById('darkToggle');
+        const root = document.documentElement;
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
+        /**
+         * تطبيق الوضع المظلم أو الفاتح
+         * @param {boolean} dark - true للوضع المظلم, false للوضع الفاتح
+         */
+        function applyDark(dark){
+            if(dark) {
+                root.classList.add('dark');
+            } else {
+                root.classList.remove('dark');
+            }
+            toggle.innerHTML = dark ? '<i class="bi bi-sun"></i>' : '<i class="bi bi-moon"></i>';
+        }
+
+        // التهيئة الأولية للوضع المظلم
+        const saved = localStorage.getItem('prefers-dark');
+        if(saved !== null) {
+            applyDark(saved === '1');
+        } else {
+            applyDark(prefersDark);
+        }
+
+        toggle.addEventListener('click', ()=>{
+            const isDark = root.classList.toggle('dark');
+            localStorage.setItem('prefers-dark', isDark ? '1' : '0');
+            applyDark(isDark);
+        });
+
+        // ===============================
+        // تأثير الظهور عند التمرير (Reveal Animation)
+        // ===============================
+        const reveals = document.querySelectorAll('.reveal');
+        if(reveals.length > 0) {
+            const io = new IntersectionObserver(entries =>{
+                entries.forEach(e=>{
+                    if(e.isIntersecting){ 
+                        e.target.classList.add('visible');
+                        io.unobserve(e.target);
+                    }
+                })
+            }, { threshold: 0.12 });
+            
+            reveals.forEach(r=>io.observe(r));
+        }
+
+        // ===============================
+        // تفعيل الروابط النشطة في جدول المحتويات
+        // ===============================
+        const tocLinks = document.querySelectorAll('#toc a');
+        
+        function setActiveToc(){
+            let index = -1;
+            const sections = Array.from(tocLinks).map(a=>document.querySelector(a.getAttribute('href')));
+            
+            sections.forEach((sec,i)=>{
+                if(sec) {
+                    const r = sec.getBoundingClientRect();
+                    if(r.top <= 120) index = i;
+                }
+            });
+            
+            tocLinks.forEach((a,i)=> a.classList.toggle('active', i===index));
+        }
+        
+        if(tocLinks.length > 0) {
+            window.addEventListener('scroll', setActiveToc);
+            setActiveToc();
+        }
+
+        // ===============================
+        // التمرير السلس لروابط جدول المحتويات
+        // ===============================
+        document.querySelectorAll('a[href^="#"]').forEach(a=>{
+            a.addEventListener('click', function(e){
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target){ 
+                    e.preventDefault();
+                    target.scrollIntoView({behavior:'smooth', block:'start'});
+                }
+            });
+        });
+
+        // ===============================
+        // اختصار الطباعة لزر PDF
+        // ===============================
+        document.querySelectorAll('a[href="#summary"]').forEach(a=> 
+            a.addEventListener('click', (e)=>{ 
+                setTimeout(()=>window.print(), 300);
+            })
+        );
+
+        // ===============================
+        // تبديل ظهور الأقسام (قابل للطي)
+        // ===============================
+        const sectionsToggle = document.getElementById('sectionsToggle');
+        const sectionsContent = document.getElementById('sections');
+        const sectionsIcon = document.getElementById('sectionsIcon');
+        
+        if(sectionsToggle && sectionsContent) {
+            sectionsToggle.addEventListener('click', () => {
+                sectionsContent.classList.toggle('collapsed');
+                if(sectionsIcon) sectionsIcon.classList.toggle('collapsed');
+            });
+        }
+
+        // ===============================
+        // تبديل ظهور جدول المحتويات (قابل للطي)
+        // ===============================
+        const tocToggle = document.getElementById('tocToggle');
+        const tocContent = document.getElementById('toc');
+        const tocIcon = document.getElementById('tocIcon');
+        
+        if(tocToggle && tocContent) {
+            tocToggle.addEventListener('click', () => {
+                tocContent.classList.toggle('collapsed');
+                if(tocIcon) tocIcon.classList.toggle('collapsed');
+            });
+        }
+
+        // ===============================
+        // زر الصعود إلى الأعلى
+        // ===============================
+        const goToTopButton = document.getElementById('go-to-top-button');
+
+        function toggleScrollButton() {
+            if(goToTopButton) {
+                goToTopButton.style.display = window.scrollY > 100 ? 'flex' : 'none';
+            }
+        }
+
+        window.addEventListener('scroll', toggleScrollButton);
+        toggleScrollButton();
+
+        if(goToTopButton) {
+            goToTopButton.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        }
+    });
+</script>
+
+<script>
+// Language toggle: switches between Arabic (ar) and English (en)
+// default language 'ar'
+(function(){
+  const defaultLang = 'ar';
+  const storageKey = 'pspp_lang';
+  const htmlEl = document.documentElement;
+  const bsLtr = document.getElementById('bs-ltr');
+  const bsRtl = document.getElementById('bs-rtl');
+  const fontAr = document.getElementById('font-ar');
+  const fontEn = document.getElementById('font-en');
+
+  function getSavedLang(){ return localStorage.getItem(storageKey) || defaultLang; }
+
+  function applyLang(lang){
+    // direction and lang attribute
+    htmlEl.lang = lang;
+    htmlEl.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+    // toggle Bootstrap CSS via media attribute
+    if(bsRtl && bsLtr){
+      if(lang === 'ar'){ bsRtl.media = 'all'; bsLtr.media = 'none'; }
+      else { bsRtl.media = 'none'; bsLtr.media = 'all'; }
+    }
+    // toggle fonts
+    if(fontAr && fontEn){
+      if(lang === 'ar'){ fontAr.media = 'all'; fontEn.media = 'none'; }
+      else { fontAr.media = 'none'; fontEn.media = 'all'; }
+    }
+    // add body class for font family control
+    document.body.classList.remove('lang-ar','lang-en');
+    document.body.classList.add(lang === 'ar' ? 'lang-ar' : 'lang-en');
+
+    // swap all elements with data-ar attribute
+    document.querySelectorAll('[data-ar]').forEach(el => {
+      const ar = el.getAttribute('data-ar');
+      const en = el.getAttribute('data-en') || ar;
+      if(el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+     el.placeholder = (lang === 'ar') ? ar : en;
+      } else {
+     el.innerHTML = (lang === 'ar') ? ar : en;
+      }
+    });
+
+    // update lang button text
+    document.querySelectorAll('#lang-toggle').forEach(btn => {
+      btn.textContent = (lang === 'ar') ? '🌐 English' : '🌐 العربية';
+    });
+
+    localStorage.setItem(storageKey, lang);
+  }
+
+  // initial apply
+  document.addEventListener('DOMContentLoaded', function(){
+    const saved = getSavedLang();
+    applyLang(saved);
+
+    // wire up toggles
+    document.querySelectorAll('#lang-toggle').forEach(btn => {
+      btn.addEventListener('click', function(){
+        const current = localStorage.getItem(storageKey) || defaultLang;
+        const next = current === 'ar' ? 'en' : 'ar';
+        applyLang(next);
+      });
+    });
+
+    // dark mode button placeholder (optional)
+    const darkBtn = document.getElementById('darkToggle');
+    if(darkBtn){
+      darkBtn.addEventListener('click', function(){
+        document.body.classList.toggle('dark-mode');
+      });
+    }
+  });
+})();
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", async function () {
+        const CACHE_NAME = "Suez-Power-Plant-image-cache-v1"; // اسم الكاش
+        const defaultImage = "https://raw.githubusercontent.com/Alostoura-Official/Project-Suez-Power-Plant-Al-Bukhari/refs/heads/main/assets/شعار-الشركة.png"; // صورة افتراضية
+        const images = document.querySelectorAll("img");
+
+        // 🟢 تحميل الصور عند فتح الصفحة
+        for (let img of images) {
+            const imgSrc = img.getAttribute("data-src") || img.src;
+            const cachedImage = await getCachedImage(imgSrc);
+
+            if (cachedImage) {
+                img.src = cachedImage; // استخدام الصورة من الكاش أو localStorage
+                console.log("✅ تحميل من الكاش:", imgSrc);
+            } else {
+                loadImageFromNetwork(img, imgSrc);
+            }
+
+            // 🟡 في حالة فشل تحميل الصورة، يتم استبدالها بالصورة الافتراضية
+            img.onerror = function () {
+                console.warn("⚠️ فشل تحميل الصورة، تعيين الصورة الافتراضية:", imgSrc);
+                img.src = defaultImage;
+            };
+        }
+
+        // 🟠 تحميل الصورة من الإنترنت وتخزينها
+        async function loadImageFromNetwork(img, imgSrc) {
+            try {
+                const response = await fetch(imgSrc);
+                if (!response.ok) throw new Error("❌ فشل تحميل الصورة من الشبكة.");
+
+                const blob = await response.blob();
+                const imageURL = URL.createObjectURL(blob);
+
+                img.src = imageURL; // عرض الصورة
+                await cacheImage(imgSrc, blob); // تخزين الصورة في الكاش
+
+            } catch (error) {
+                console.error("❌ خطأ في تحميل الصورة:", imgSrc, error);
+                img.src = defaultImage;
+            }
+        }
+
+        // 🔵 جلب الصورة من الكاش أو localStorage
+        async function getCachedImage(imgSrc) {
+            const cache = await caches.open(CACHE_NAME);
+            const cachedResponse = await cache.match(imgSrc);
+
+            if (cachedResponse) {
+                return URL.createObjectURL(await cachedResponse.blob());
+            } else {
+                return localStorage.getItem(imgSrc);
+            }
+        }
+
+        // 🔵 تخزين الصورة في `Cache API` و `localStorage`
+        async function cacheImage(imgSrc, blob) {
+            const cache = await caches.open(CACHE_NAME);
+            cache.put(imgSrc, new Response(blob)); // تخزين الصورة في الكاش
+
+            // تخزين الصورة في `localStorage` إذا كان الحجم صغيرًا
+            const reader = new FileReader();
+            reader.onloadend = function () {
+                try {
+                    localStorage.setItem(imgSrc, reader.result);
+                } catch (e) {
+                    console.warn("⚠️ localStorage ممتلئ، الصورة لن يتم تخزينها.");
+                }
+            };
+            reader.readAsDataURL(blob);
+        }
+
+        // 🟣 عند فقد الاتصال، تحميل الصور من الكاش أو localStorage
+        window.addEventListener("offline", async () => {
+            console.warn("📴 الوضع غير متصل بالإنترنت، تحميل الصور من التخزين...");
+            for (let img of images) {
+                const imgSrc = img.getAttribute("data-src") || img.src;
+                const cachedImage = await getCachedImage(imgSrc);
+                if (cachedImage) {
+                    img.src = cachedImage;
+                }
+            }
+        });
+
+        // 🟢 عند استعادة الإنترنت، يتم تحديث الصور
+        window.addEventListener("online", async () => {
+            console.log("📡 استعادة الإنترنت، تحديث الصور...");
+            for (let img of images) {
+                const imgSrc = img.getAttribute("data-src") || img.src;
+                loadImageFromNetwork(img, imgSrc);
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
-
-
-
-
-

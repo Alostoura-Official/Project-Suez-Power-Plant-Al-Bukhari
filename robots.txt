@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://alostoura-official.github.io/Project-Suez-Power-Plant-Al-Bukhari/sitemap.xml
